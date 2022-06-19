@@ -1,0 +1,14 @@
+.env
+
+# Worspace & editor files
+.idea
+*.code-workspace
+.vscode/
+
+# Test related files
+.coverage*
+coverage.xml
+cov.xml
+htmlcov
+.pytest_cache
+
