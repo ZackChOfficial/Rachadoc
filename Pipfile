@@ -9,6 +9,7 @@ black = "*"
 django = "*"
 django-environ = "*"
 psycopg2 = "*"
+django-rosetta = "*"
 
 [dev-packages]
 
