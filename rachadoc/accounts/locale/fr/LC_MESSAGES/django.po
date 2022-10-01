@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-30 20:10+0000\n"
+"PO-Revision-Date: 2022-10-01 12:14+0000\n"
+"Last-Translator:   <zack@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
+
+#: rachadoc/accounts/admin.py:11
+msgid "Personal info"
+msgstr "Info personnel"
+
+#: rachadoc/accounts/admin.py:13
+msgid "Permissions"
+msgstr "Permissions"
+
+#: rachadoc/accounts/admin.py:24
+msgid "Important dates"
+msgstr "Dates Important"
+
+#: rachadoc/accounts/models.py:50 rachadoc/accounts/models.py:69
+#: rachadoc/accounts/models.py:70
+msgid "Inconnu"
+msgstr "Inconnu"
+
+#: rachadoc/accounts/models.py:50
+msgid "Homme"
+msgstr "Homme"
+
+#: rachadoc/accounts/models.py:50
+msgid "Femme"
+msgstr "Femme"
+
+#: rachadoc/accounts/models.py:54
+msgid "address email"
+msgstr "address email"
+
+#: rachadoc/accounts/models.py:55
+msgid "numéro de téléphone"
+msgstr "numéro de téléphone"
+
+#: rachadoc/accounts/models.py:56
+msgid "carte nationale d'identité électronique"
+msgstr "carte nationale d'identité électronique"
+
+#: rachadoc/accounts/models.py:57 rachadoc/accounts/models.py:58
+msgid "date de naissance"
+msgstr "date de naissance"
+
+#: rachadoc/accounts/models.py:59
+msgid "photo de profil"
+msgstr "photo de profil"
+
+#: rachadoc/accounts/models.py:60
+msgid "email verifier"
+msgstr "email verifier"
+
+#: rachadoc/accounts/models.py:61
+msgid "numéro de téléphone verifier"
+msgstr "numéro de téléphone verifier"
+
+#: rachadoc/accounts/models.py:69
+msgid "Marié"
+msgstr "Marié"
+
+#: rachadoc/accounts/models.py:69
+msgid "Célibataire"
+msgstr "Célibataire"
+
+#: rachadoc/accounts/models.py:72
+msgid "ville de residence"
+msgstr "ville de residence"
+
+#: rachadoc/accounts/models.py:73
+msgid "address"
+msgstr "address"
+
+#: rachadoc/accounts/models.py:74
+msgid "État civil"
+msgstr "État civil"
+
+#: rachadoc/accounts/models.py:75
+msgid "Mutuelle"
+msgstr "Mutuelle"
+
+#: rachadoc/accounts/models.py:78
+msgid "description"
+msgstr "description"
+
+#: rachadoc/accounts/models.py:79
+msgid "INP"
+msgstr "INP"
