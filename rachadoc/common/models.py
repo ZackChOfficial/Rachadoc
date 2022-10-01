@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+
+class Tarif(models.Model):
+    pass
+
+
+class Picture(models.Model):
+    pass
+
+
+class Expertise(models.Model):
+    pass

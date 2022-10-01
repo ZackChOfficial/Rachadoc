@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+
+class Event(models.Model):
+    pass
+
+
+class Appointement(Event):
+    pass
+
+
+class PersonalEvent(Event):
+    pass
