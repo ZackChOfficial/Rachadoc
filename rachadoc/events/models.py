@@ -1,13 +1,14 @@
 from django.db import models
+from events.managers import EventManager, AppointementManager, PersonalManager
 
 
 class Event(models.Model):
-    pass
+    object = EventManager()
 
 
 class Appointement(Event):
-    pass
+    objects = AppointementManager()
 
 
 class PersonalEvent(Event):
-    pass
+    objects = PersonalManager()

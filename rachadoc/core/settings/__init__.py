@@ -18,7 +18,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -134,13 +134,13 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
-    f"{BASE_DIR}/../accounts/locale",
-    f"{BASE_DIR}/../agenda/locale",
-    f"{BASE_DIR}/../clinic/locale",
-    f"{BASE_DIR}/../common/locale",
-    f"{BASE_DIR}/../events/locale",
-    f"{BASE_DIR}/../notification/locale",
-    f"{BASE_DIR}/../core/locale",
+    f"{BASE_DIR}/accounts/locale",
+    f"{BASE_DIR}/agenda/locale",
+    f"{BASE_DIR}/clinic/locale",
+    f"{BASE_DIR}/common/locale",
+    f"{BASE_DIR}/events/locale",
+    f"{BASE_DIR}/notification/locale",
+    f"{BASE_DIR}/core/locale",
 ]
 
 # Static files (CSS, JavaScript, Images)

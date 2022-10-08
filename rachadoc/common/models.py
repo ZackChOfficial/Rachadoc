@@ -1,13 +1,14 @@
 from django.db import models
+from common.managers import TarifManager, PictureManager, ExpertiseManager
 
 
 class Tarif(models.Model):
-    pass
+    objects = TarifManager()
 
 
 class Picture(models.Model):
-    pass
+    objects = PictureManager()
 
 
 class Expertise(models.Model):
-    pass
+    objects = ExpertiseManager()
