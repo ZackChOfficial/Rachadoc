@@ -5,6 +5,7 @@ import uuid
 from clinic.models import Clinic
 from core.settings.business import DEFAULT_APPOINTEMENT_DURATION
 from accounts.managers import BaseUserManager, PatientManager, DoctorManager, ReceptionistManager
+from common.models import Expertise
 
 
 class User(AbstractUser):
@@ -51,6 +52,8 @@ class Doctor(User):
     description = models.CharField(_("description"), max_length=4096)
     INP = models.CharField(_("INP"), max_length=127)
     appointement_duration = models.IntegerField(_("Durée du rendez-vous"), default=DEFAULT_APPOINTEMENT_DURATION)
+    tarifs = models.ManyToManyField(Clinic, through="Tarif")
+    expertises = models.ManyToManyField(Expertise)
     objects = DoctorManager()
 
 

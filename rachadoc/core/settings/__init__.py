@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "core",
     "accounts",
-    "agenda",
+    "agendasetting",
     "clinic",
     "common",
     "events",
@@ -135,7 +135,7 @@ LANGUAGES = [
 
 LOCALE_PATHS = [
     f"{BASE_DIR}/accounts/locale",
-    f"{BASE_DIR}/agenda/locale",
+    f"{BASE_DIR}/agendasetting/locale",
     f"{BASE_DIR}/clinic/locale",
     f"{BASE_DIR}/common/locale",
     f"{BASE_DIR}/events/locale",
