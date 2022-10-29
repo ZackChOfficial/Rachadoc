@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rosetta",
     "corsheaders",
+    "oauth2_provider",
     "rest_framework",
     "core",
     "accounts",
@@ -94,6 +95,7 @@ DATABASES = {
     "default": env.db(
         "DATABASE_DEFAULT_URL",
         default="postgresql://rachadoc:rachadoc@127.0.0.1:5432/rachadoc",
+        engine='django.contrib.gis.db.backends.postgis', 
     ),
 }
 

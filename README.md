@@ -8,3 +8,5 @@ create db
 Enabling PostGIS
 
 `CREATE EXTENSION postgis;`
+
+`ALTER ROLE rachadoc  SUPERUSER;`

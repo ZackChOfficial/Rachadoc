@@ -43,7 +43,7 @@ class Doctor(User):
     description = models.CharField(_("description"), max_length=4096)
     INP = models.CharField(_("INP"), max_length=127)
     appointement_duration = models.IntegerField(_("Durée du rendez-vous"), default=DEFAULT_APPOINTEMENT_DURATION)
-    tarifs = models.ManyToManyField("clinic.Clinic", through="common.Tarif")
+    clinics = models.ManyToManyField("clinic.Clinic", through="common.Tarif")
     expertises = models.ManyToManyField(Expertise)
     objects = DoctorManager()
 

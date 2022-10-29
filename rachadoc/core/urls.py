@@ -20,9 +20,8 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path("overseas/", admin.site.urls),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
 if "rosetta" in settings.INSTALLED_APPS:
     urlpatterns += [re_path(r"^rosetta/", include("rosetta.urls"))]
-
-# urlpatterns += i18n_patterns()
