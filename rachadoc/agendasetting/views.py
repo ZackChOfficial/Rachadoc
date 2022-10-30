@@ -4,12 +4,7 @@ from agendasetting.serializers import (
     ClinicAgendaSettingSerializer,
     DoctorAgendaSettingSerializer,
 )
-from agendasetting.models import AgendaSetting, ClinicAgendaSetting, DoctorAgendaSetting
-
-
-class AgendaSettingViewSet(viewsets.ModelViewSet):
-    serializer_class = AgendaSettingSerializer
-    queryset = AgendaSetting.objects.all()
+from agendasetting.models import ClinicAgendaSetting, DoctorAgendaSetting
 
 
 class ClinicAgendaSettingViewSet(viewsets.ModelViewSet):
