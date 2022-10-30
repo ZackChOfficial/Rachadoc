@@ -49,5 +49,5 @@ class Doctor(User):
 
 
 class Receptionist(User):
-    Clinic = models.ForeignKey("clinic.Clinic", on_delete=models.CASCADE)
+    clinic = models.ForeignKey("clinic.Clinic", on_delete=models.CASCADE)
     objects = ReceptionistManager()

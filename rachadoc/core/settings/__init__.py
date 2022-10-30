@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "oauth2_provider",
     "rest_framework",
+    "rest_framework_gis",
     "core",
     "accounts",
     "agendasetting",
@@ -95,7 +96,7 @@ DATABASES = {
     "default": env.db(
         "DATABASE_DEFAULT_URL",
         default="postgresql://rachadoc:rachadoc@127.0.0.1:5432/rachadoc",
-        engine='django.contrib.gis.db.backends.postgis', 
+        engine="django.contrib.gis.db.backends.postgis",
     ),
 }
 
@@ -157,5 +158,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
 
+APPEND_SLASH = False
 
 from .api import *

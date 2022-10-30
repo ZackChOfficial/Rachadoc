@@ -12,11 +12,11 @@ class AgendaSetting(BaseTimestampedModel):
     objects = AgendaSettingManager()
 
 
-class ClinicAgendaSetting(BaseTimestampedModel):
+class ClinicAgendaSetting(AgendaSetting):
     clinic = models.ForeignKey("clinic.Clinic", on_delete=models.CASCADE)
     objects = ClinicAgendaSettingManager()
 
 
-class DoctorAgendaSetting(BaseTimestampedModel):
+class DoctorAgendaSetting(AgendaSetting):
     doctor = models.ForeignKey("accounts.Doctor", on_delete=models.CASCADE)
     objects = DoctorAgendaSettingManager()

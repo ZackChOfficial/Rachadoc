@@ -22,7 +22,7 @@ class Appointement(Event):
     objects = AppointementManager()
 
 
-class PersonalEvent(Event):
+class Personal(Event):
     doctor = models.ForeignKey("accounts.Doctor", on_delete=models.CASCADE)
     note = models.CharField(_("note"), max_length=2048)
     objects = PersonalManager()

@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
-from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path("overseas/", admin.site.urls),
-    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path("o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
 ]
 
 if "rosetta" in settings.INSTALLED_APPS:
     urlpatterns += [re_path(r"^rosetta/", include("rosetta.urls"))]
+
+urlpatterns += [
+    re_path(r"^v1/accounts/", include(("accounts.urls", "accounts"), namespace="v1")),
+]
