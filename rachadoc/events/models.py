@@ -10,7 +10,7 @@ class Event(BaseTimestampedModel):
     from_date = models.DateTimeField(_("date de début"))
     to_date = models.DateTimeField(_("date de fin"))
     status = models.IntegerField(_("Status"), choices=Status.choices, default=Status.UNKNOWN)
-    object = EventManager()
+    objects = EventManager()
 
 
 class Appointement(Event):

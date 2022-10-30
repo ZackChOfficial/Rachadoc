@@ -11,14 +11,14 @@ class AgendaSettingSerializer(FlexFieldsModelSerializer):
 
 
 class ClinicAgendaSettingSerializer(AgendaSettingSerializer):
-    class Meta:
+    class Meta(AgendaSettingSerializer.Meta):
         model = ClinicAgendaSetting
-        fields = AgendaSettingSerializer.fields + ("clinic")
+        fields = AgendaSettingSerializer.Meta.fields + ("clinic",)
         expandable_fields = {"clinic": (ClinicSerializer)}
 
 
 class DoctorAgendaSettingSerializer(AgendaSettingSerializer):
-    class Meta:
+    class Meta(AgendaSettingSerializer.Meta):
         model = DoctorAgendaSetting
-        fields = AgendaSettingSerializer.fields + ("doctor")
+        fields = AgendaSettingSerializer.Meta.fields + ("doctor",)
         expandable_fields = {"doctor": (DoctorSerializer)}
