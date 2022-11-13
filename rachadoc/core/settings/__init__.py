@@ -148,8 +148,8 @@ LOCALE_PATHS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'rules.permissions.ObjectPermissionBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    "rules.permissions.ObjectPermissionBackend",
+    "django.contrib.auth.backends.ModelBackend",
 )
 
 # Static files (CSS, JavaScript, Images)

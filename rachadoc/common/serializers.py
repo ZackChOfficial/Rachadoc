@@ -17,4 +17,4 @@ class PictureSerializer(FlexFieldsModelSerializer):
 class ExpertiseSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Expertise
-        fields = ("name", "description")
+        fields = ("id", "name", "description")

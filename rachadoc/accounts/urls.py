@@ -3,8 +3,8 @@ from accounts.views import PatientViewSet, DoctorViewSet, ReceptionistViewSet
 
 router = routers.SimpleRouter()
 
-router.register(r"patients", PatientViewSet)
-router.register(r"doctors", DoctorViewSet)
-router.register(r"receptionists", ReceptionistViewSet)
+router.register(r"patient", PatientViewSet)
+router.register(r"doctor", DoctorViewSet)
+router.register(r"receptionist", ReceptionistViewSet)
 
 urlpatterns = router.urls
