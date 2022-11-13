@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "oauth2_provider",
     "rest_framework",
     "rest_framework_gis",
+    "rules",
     "core",
     "accounts",
     "agendasetting",
@@ -145,6 +146,11 @@ LOCALE_PATHS = [
     f"{BASE_DIR}/notification/locale",
     f"{BASE_DIR}/core/locale",
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

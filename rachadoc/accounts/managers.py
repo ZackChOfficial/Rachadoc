@@ -1,5 +1,6 @@
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth.models import BaseUserManager as DjangoBaseUserManager
+from django.contrib.auth.models import Group
 
 
 class BaseUserManager(DjangoBaseUserManager):
@@ -40,7 +41,7 @@ class PatientQuerySet(models.QuerySet):
     pass
 
 
-class PatientManager(models.Manager):
+class PatientManager(BaseUserManager):
     def get_queryset(self):
         return PatientQuerySet(self.model, using=self._db)
 
@@ -49,15 +50,49 @@ class DoctorQuerySet(models.QuerySet):
     pass
 
 
-class DoctorManager(models.Manager):
+class DoctorManager(BaseUserManager):
     def get_queryset(self):
         return DoctorQuerySet(self.model, using=self._db)
+
+    def create_user(self, email, password=None, **extra_fields):
+        """Create and save a doctor User with the given email and password."""
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
+        if not email:
+            raise ValueError("The given email must be set")
+        email = self.normalize_email(email)
+        expertises = extra_fields.pop("expertises", [])
+        clinics = extra_fields.pop("clinics", [])
+        with transaction.atomic():
+            doctor = self.model(email=email, **extra_fields)
+            doctor.set_password(password)
+            doctor.save(using=self._db)
+            doctor_group, _ = Group.objects.get_or_create(name="Doctor")
+            doctor.groups.add(doctor_group.id)
+            doctor.expertises.set(expertises)
+            doctor.clinics.set(clinics)
+        return doctor
 
 
 class ReceptionistQuerySet(models.QuerySet):
     pass
 
 
-class ReceptionistManager(models.Manager):
+class ReceptionistManager(BaseUserManager):
     def get_queryset(self):
         return ReceptionistQuerySet(self.model, using=self._db)
+
+    def create_user(self, email, password=None, **extra_fields):
+        """Create and save a receptionist User with the given email and password."""
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
+        if not email:
+            raise ValueError("The given email must be set")
+        email = self.normalize_email(email)
+        with transaction.atomic():
+            receptionist = self.model(email=email, **extra_fields)
+            receptionist.set_password(password)
+            receptionist.save(using=self._db)
+            receptionist_group, _ = Group.objects.get_or_create(name="Receptionist")
+            receptionist.groups.add(receptionist_group.id)
+        return receptionist

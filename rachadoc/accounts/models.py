@@ -6,9 +6,13 @@ from core.settings.business import DEFAULT_APPOINTEMENT_DURATION
 from accounts.managers import BaseUserManager, PatientManager, DoctorManager, ReceptionistManager
 from common.models import Expertise
 from accounts.choices import GENDERS, CIVIL_STATUS, INSURANCES
+import rules
+from rules.contrib.models import RulesModelMixin, RulesModelBase
+
+from core.lib.permissions import is_obj_owner, is_doctor, is_doctor_and_same_clinic
 
 
-class User(AbstractUser):
+class User(AbstractUser, RulesModelMixin, metaclass=RulesModelBase):
     """User model."""
 
     USERNAME_FIELD = "email"
@@ -38,16 +42,43 @@ class Patient(User):
     insurance = models.IntegerField(_("Mutuelle"), choices=INSURANCES.choices, default=INSURANCES.UNKNOWN)
     objects = PatientManager()
 
+    class Meta:
+        rules_permissions = {
+            "add": rules.always_allow,
+            "change": rules.always_allow,
+            "delete": rules.is_superuser,
+            "view": rules.always_allow,
+            "list": rules.always_allow,
+        }
+
 
 class Doctor(User):
     description = models.CharField(_("description"), max_length=4096)
-    INP = models.CharField(_("INP"), max_length=127)
+    inp = models.CharField(_("INP"), max_length=127)
     appointement_duration = models.IntegerField(_("Durée du rendez-vous"), default=DEFAULT_APPOINTEMENT_DURATION)
     clinics = models.ManyToManyField("clinic.Clinic", through="common.Tarif")
     expertises = models.ManyToManyField(Expertise)
     objects = DoctorManager()
 
+    class Meta:
+        rules_permissions = {
+            "add": rules.is_superuser,
+            "change": (rules.is_superuser | is_obj_owner),
+            "delete": rules.is_superuser,
+            "view": (rules.is_superuser | is_obj_owner),
+            "list": rules.is_superuser,
+        }
+
 
 class Receptionist(User):
     clinic = models.ForeignKey("clinic.Clinic", on_delete=models.CASCADE)
     objects = ReceptionistManager()
+
+    class Meta:
+        rules_permissions = {
+            "add": (rules.is_superuser | is_doctor),
+            "change": (rules.is_superuser | is_doctor_and_same_clinic),
+            "delete": rules.is_superuser,
+            "view": (rules.is_superuser | is_doctor_and_same_clinic),
+            "list": rules.is_superuser,
+        }
