@@ -26,9 +26,9 @@ if "rosetta" in settings.INSTALLED_APPS:
     urlpatterns += [re_path(r"^rosetta/", include("rosetta.urls"))]
 
 urlpatterns += [
-    re_path(r"^v1/", include(("accounts.urls", "accounts"), namespace="accounts-v1")),
-    re_path(r"^v1/", include(("agendasetting.urls", "agendasetting"), namespace="agendasetting-v1")),
-    re_path(r"^v1/", include(("clinic.urls", "clinic"), namespace="clinic-v1")),
-    re_path(r"^v1/", include(("common.urls", "common"), namespace="common-v1")),
-    re_path(r"^v1/", include(("events.urls", "events"), namespace="events-v1")),
+    re_path(r"^v1/accounts/", include(("accounts.urls", "accounts"), namespace="accounts-v1")),
+    re_path(r"^v1/agendasetting/", include(("agendasetting.urls", "agendasetting"), namespace="agendasetting-v1")),
+    re_path(r"^v1/clinic/", include(("clinic.urls", "clinic"), namespace="clinic-v1")),
+    re_path(r"^v1/common/", include(("common.urls", "common"), namespace="common-v1")),
+    re_path(r"^v1/events/", include(("events.urls", "events"), namespace="events-v1")),
 ]

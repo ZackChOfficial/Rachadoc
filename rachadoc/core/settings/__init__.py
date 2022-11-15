@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rosetta",
     "corsheaders",
+    "django_extensions",
     "oauth2_provider",
     "rest_framework",
     "rest_framework_gis",

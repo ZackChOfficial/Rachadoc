@@ -3,6 +3,6 @@ from clinic.views import ClinicViewSet
 
 router = routers.SimpleRouter()
 
-router.register(r"^", ClinicViewSet, basename="clinic")
+router.register(r"", ClinicViewSet)
 
 urlpatterns = router.urls

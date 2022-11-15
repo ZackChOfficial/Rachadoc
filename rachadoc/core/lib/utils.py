@@ -20,3 +20,10 @@ def getReceptionistFromRequest(request) -> Optional[Doctor]:
         return Receptionist.objects.get(user__id=user.id)
     except Receptionist.DoesNotExist:
         return None
+
+
+def get_object_or_none(model, pk):
+    try:
+        return model.objects.get(id=pk)
+    except model.DoesNotExist:
+        return None
