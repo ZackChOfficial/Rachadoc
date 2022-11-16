@@ -12,6 +12,3 @@ class ClinicViewSet(viewsets.ModelViewSet):
         **AutoPermissionViewSetMixin.permission_type_map,
         "list": "list",
     }
-
-    def get_queryset(self):
-        return super().get_queryset()

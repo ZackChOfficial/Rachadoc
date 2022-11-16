@@ -58,3 +58,13 @@ def is_doctor_and_tarif_owner(user, obj):
     if not is_doctor:
         return False
     return obj.doctor.id == user.id
+
+
+@predicate
+def is_doctor_and_AgendaSetting_owner(user, obj):
+    from accounts.models import Doctor
+
+    is_doctor = Doctor.objects.filter(id=user.id).exists()
+    if not is_doctor:
+        return False
+    return obj.doctor.id == user.id
