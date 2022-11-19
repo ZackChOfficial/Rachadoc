@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
+from events.urls import websocket_urlpatterns as events_websocket_urlpatterns
 
 urlpatterns = [
     path("overseas/", admin.site.urls),
@@ -32,3 +33,8 @@ urlpatterns += [
     re_path(r"^v1/common/", include(("common.urls", "common"), namespace="common-v1")),
     re_path(r"^v1/events/", include(("events.urls", "events"), namespace="events-v1")),
 ]
+
+
+websocket_urlpatterns = []
+
+websocket_urlpatterns += events_websocket_urlpatterns
