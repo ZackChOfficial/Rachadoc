@@ -1,1 +1,7 @@
 DEFAULT_APPOINTEMENT_DURATION = 15
+
+DOCTOR = "Doctor"
+PATIENT = "Patient"
+RECEPTIONIST = "Receptionist"
+SUPERUSER = "Superuser"
+ANONYMOUS = "Anonymous"
