@@ -1,18 +1,22 @@
 import json
 from channels.generic.websocket import JsonWebsocketConsumer
+from asgiref.sync import async_to_sync
 
 
 class EventstConsumer(JsonWebsocketConsumer):
     def connect(self):
-
+        if not self.scope["user"].is_active or not self.scope["clinic"]:
+            self.close()
+        async_to_sync(self.channel_layer.group_add)(self.scope["clinic"], self.channel_name)
         return super().connect()
 
     def receive_json(self, content, **kwargs):
-        message_type = content.get("action")
-        if message_type == "appointement.create":
-            pass
-        elif message_type == "appointement.update":
-            pass
+        pass
+
+    def send_updates(self, data):
+        pass
 
     def disconnect(self, code):
+        if self.scope["clinic"]:
+            async_to_sync(self.channel_layer.group_discard)(self.scope["clinic"], self.channel_name)
         return super().disconnect(code)
