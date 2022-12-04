@@ -32,15 +32,16 @@ class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     }
 
     def create(self, request):
-        expertises_ids = request.data.getlist("expertises", None)
+        expertises_ids = request.data.get("expertises", None)
         expertises = list(Expertise.objects.filter(id__in=expertises_ids))
+        if len(expertises) != len(expertises_ids):
+            return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+        serialized_data = DoctorSerializer(data=request.data)
+        if not serialized_data.is_valid():
+            return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
         serialized_data = {
-            **request.data,
-            "email": request.data.get("email", None),
-            "description": request.data.get("description", None),
-            "inp": request.data.get("inp", None),
+            **serialized_data.validated_data,
             "expertises": expertises,
-            "password": request.data.get("password", None),
         }
         doctor = Doctor.objects.create_user(**serialized_data)
         return Response(DoctorSerializer(doctor).data)
@@ -99,4 +100,8 @@ class ReceptionistViewSet(viewsets.ModelViewSet):
             return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
         if doctor and not doctor.clinics.filter(id=clinic_id).exists():
             return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
-        return super().create(request)
+        serialized_data = ReceptionistSerializer(data=request.data)
+        if not serialized_data.is_valid():
+            return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
+        receptionist = Receptionist.objects.create_user(**serialized_data.validated_data)
+        return Response(ReceptionistSerializer(receptionist).data)
