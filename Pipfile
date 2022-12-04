@@ -6,10 +6,11 @@ name = "pypi"
 [packages]
 django-extensions = "*"
 black = "*"
-django = "*"
+django = "==4.*"
 django-environ = "*"
 psycopg2 = "*"
 django-rosetta = "*"
+djangorestframework = "==3.*"
 
 [dev-packages]
 
