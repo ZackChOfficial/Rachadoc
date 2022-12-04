@@ -24,7 +24,12 @@ class PatientSerializer(FlexFieldsModelSerializer):
             "address",
             "CIVIL_STATUS",
             "insurance",
+            "password",
         )
+        extra_kwargs = {
+            "password": {"write_only": True},
+            "id": {"read_only": True},
+        }
 
 
 class DoctorSerializer(FlexFieldsModelSerializer):
@@ -49,13 +54,17 @@ class DoctorSerializer(FlexFieldsModelSerializer):
             "expertises": (ExpertiseSerializer, {"many": True}),
             "groups": (GroupSerializer, {"many": True}),
         }
-        extra_kwargs = {"password": {"write_only": True}}
+        extra_kwargs = {
+            "password": {"write_only": True},
+            "id": {"read_only": True},
+        }
 
 
 class ReceptionistSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Receptionist
-        fields = ("id", "email", "first_name", "last_name", "date_joined", "clinic")
+        fields = ("id", "password", "email", "first_name", "last_name", "date_joined", "clinic")
+        extra_kwargs = {"id": {"read_only": True}, "password": {"write_only": True}}
         expandable_fields = {
             "clinic": (ClinicSerializer),
         }

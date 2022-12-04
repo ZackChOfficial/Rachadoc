@@ -91,12 +91,9 @@ class ReceptionistManager(BaseUserManager):
         if not email:
             raise ValueError("The given email must be set")
         email = self.normalize_email(email)
-        clinic_id = extra_fields.pop("clinic")
         with transaction.atomic():
             receptionist = self.model(email=email, **extra_fields)
             receptionist.set_password(password)
-            clinic = Clinic.objects.only("id").get(id=clinic_id)
-            receptionist.clinic = clinic
             receptionist.save(using=self._db)
             receptionist_group, _ = Group.objects.get_or_create(name="Receptionist")
             receptionist.groups.add(receptionist_group.id)
