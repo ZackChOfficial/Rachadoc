@@ -57,6 +57,8 @@ class DoctorSerializer(FlexFieldsModelSerializer):
         extra_kwargs = {
             "password": {"write_only": True},
             "id": {"read_only": True},
+            "expertises": {"read_only": True},
+            "clinics": {"read_only": True},
         }
 
 
