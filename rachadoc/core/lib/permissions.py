@@ -23,11 +23,12 @@ def is_receptionist(user):
 @predicate
 def is_doctor_and_same_clinic(user, obj):
     from accounts.models import Doctor
+    from core.lib.utils import get_object_or_none
 
-    is_doctor = Doctor.objects.filter(id=user.id).exists()
-    if not is_doctor:
+    doctor = get_object_or_none(Doctor, user.id)
+    if not doctor:
         return False
-    return user.clinics.filter(id=obj.clinic.id).exists()
+    return doctor.clinics.filter(id=obj.clinic.id).exists()
 
 
 @predicate

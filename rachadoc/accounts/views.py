@@ -13,7 +13,7 @@ from rest_framework import status
 from core.lib.utils import getDoctorFromRequest
 
 
-class PatientViewSet(viewsets.ModelViewSet):
+class PatientViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = PatientSerializer
     queryset = Patient.objects.all()
 
@@ -88,7 +88,7 @@ class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
             return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ReceptionistViewSet(viewsets.ModelViewSet):
+class ReceptionistViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ReceptionistSerializer
     queryset = Receptionist.objects.all()
 
@@ -105,3 +105,14 @@ class ReceptionistViewSet(viewsets.ModelViewSet):
             return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
         receptionist = Receptionist.objects.create_user(**serialized_data.validated_data)
         return Response(ReceptionistSerializer(receptionist).data)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop("partial", False)
+        instance = self.get_object()
+        data = request.data
+        if "clinic" in data:
+            return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.get_serializer(instance, data=data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
