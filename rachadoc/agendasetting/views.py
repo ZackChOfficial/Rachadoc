@@ -7,9 +7,10 @@ from agendasetting.models import ClinicAgendaSetting, DoctorAgendaSetting
 from accounts.models import User, Doctor
 from core.lib.utils import getDoctorFromRequest
 from django.db.models import QuerySet
+from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 
 
-class ClinicAgendaSettingViewSet(viewsets.ModelViewSet):
+class ClinicAgendaSettingViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ClinicAgendaSettingSerializer
     queryset = ClinicAgendaSetting.objects.all()
 
@@ -26,7 +27,7 @@ class ClinicAgendaSettingViewSet(viewsets.ModelViewSet):
         return queryset.filter(clinic__id=clinics)
 
 
-class DoctorAgendaSettingViewSet(viewsets.ModelViewSet):
+class DoctorAgendaSettingViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = DoctorAgendaSettingSerializer
     queryset = DoctorAgendaSetting.objects.all()
 

@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from agendasetting.choices import WEEKDAYS
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 import rules
-from core.lib.permissions import is_obj_owner, is_doctor, is_doctor_and_same_clinic, is_doctor_and_AgendaSetting_owner
+from core.lib.permissions import is_doctor, is_doctor_and_same_clinic, is_doctor_and_AgendaSetting_owner
 
 
 class AgendaSetting(BaseTimestampedModel):

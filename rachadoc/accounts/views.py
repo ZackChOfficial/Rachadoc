@@ -3,7 +3,6 @@ from accounts.serializers import PatientSerializer, DoctorSerializer, Receptioni
 from accounts.models import Patient, Doctor, Receptionist, User
 from rest_framework.response import Response
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
-from django.db import transaction
 from rest_framework.decorators import action
 from clinic.models import Clinic
 from common.models import Expertise

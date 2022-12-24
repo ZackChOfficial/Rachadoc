@@ -1,18 +1,19 @@
 from rest_framework import viewsets
 from common.models import Tarif, Picture, Expertise
 from common.serializers import TarifSerializer, PictureSerializer, ExpertiseSerializer
+from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 
 
-class TarifViewSet(viewsets.ModelViewSet):
+class TarifViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = TarifSerializer
     queryset = Tarif.objects.all()
 
 
-class PictureViewSet(viewsets.ModelViewSet):
+class PictureViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = PictureSerializer
     queryset = Picture.objects.all()
 
 
-class ExpertiseViewSet(viewsets.ModelViewSet):
+class ExpertiseViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ExpertiseSerializer
     queryset = Expertise.objects.all()

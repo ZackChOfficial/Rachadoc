@@ -4,7 +4,7 @@ from clinic.serializers import ClinicSerializer
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 
 
-class ClinicViewSet(viewsets.ModelViewSet):
+class ClinicViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ClinicSerializer
     queryset = Clinic.objects.all()
 
