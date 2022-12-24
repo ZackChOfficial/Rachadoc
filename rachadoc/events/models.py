@@ -28,6 +28,9 @@ class Appointement(Event):
     clinic = models.ForeignKey("clinic.Clinic", on_delete=models.CASCADE)
     note_pre_appointement = models.CharField(_("note pré rendez-vous "), max_length=2048)
     note_post_appointement = models.CharField(_("note après le rendez-vous"), max_length=2048)
+    waiting_examination = models.DateTimeField(_("Dans la salle d'attente"), default=None)
+    start_examination = models.DateTimeField(_("Début de l'examen"), default=None)
+    end_examination = models.DateTimeField(_("Fin de l'examen"), default=None)
     objects = AppointementManager()
 
     class Meta:
