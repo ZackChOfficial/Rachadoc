@@ -24,7 +24,7 @@ class ClinicAgendaSettingViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewS
         if not doctor:
             return queryset.none()
         clinics = doctor.clinics.values_list("id", flat=True)
-        return queryset.filter(clinic__id=clinics)
+        return queryset.filter(clinic__id__in=clinics)
 
 
 class DoctorAgendaSettingViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):

@@ -10,8 +10,8 @@ from core.lib.permissions import is_doctor, is_doctor_and_same_clinic, is_doctor
 
 class AgendaSetting(BaseTimestampedModel):
     week_day = models.IntegerField(_("jour de semaine"), choices=WEEKDAYS.choices, default=WEEKDAYS.MONDAY)
-    from_date = models.DateTimeField(_("date de début"))
-    to_date = models.DateTimeField(_("date de fin"))
+    from_date = models.TimeField(_("heure de début"))
+    to_date = models.TimeField(_("heure de fin"))
     objects = AgendaSettingManager()
 
 
@@ -21,7 +21,7 @@ class ClinicAgendaSetting(AgendaSetting, RulesModelMixin, metaclass=RulesModelBa
 
     class Meta:
         rules_permissions = {
-            "add": (rules.is_superuser | is_doctor),
+            "add": (rules.is_superuser | is_doctor_and_same_clinic),
             "change": (rules.is_superuser | is_doctor_and_same_clinic),
             "delete": (rules.is_superuser | is_doctor_and_same_clinic),
             "view": (rules.is_superuser | is_doctor_and_same_clinic),
