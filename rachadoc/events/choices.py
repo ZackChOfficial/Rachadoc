@@ -4,7 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 class Status(models.IntegerChoices):
     UNKNOWN = 1, _("Inconnu")
-    UPCOMING = 2, _("Prochain")
-    ONGOING = 3, _("En cours")
-    DONE = 4, _("Terminé")
-    CANCELED = 5, _("Annulé")
+    UPCOMING = 2, _("Planifie")
+    WAITING = 3, _("En Attente")
+    ONGOING = 4, _("En cours")
+    DONE = 5, _("Terminé")
+    CANCELED = 6, _("Annulé")
