@@ -12,12 +12,14 @@ from core.lib.permissions import (
     is_doctor_and_same_clinic,
     is_receptionist_same_clinic,
 )
+import uuid
 
 
 class Event(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):
-    name = models.CharField(_("nom"), max_length=255)
-    from_date = models.DateTimeField(_("date de début"))
-    to_date = models.DateTimeField(_("date de fin"))
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(_("nom"), max_length=255)
+    start = models.DateTimeField(_("date de début"))
+    end = models.DateTimeField(_("date de fin"))
     status = models.IntegerField(_("Status"), choices=Status.choices, default=Status.UNKNOWN)
     objects = EventManager()
 
@@ -26,16 +28,16 @@ class Appointement(Event):
     patient = models.ForeignKey("accounts.Patient", on_delete=models.CASCADE)
     doctor = models.ForeignKey("accounts.Doctor", on_delete=models.CASCADE)
     clinic = models.ForeignKey("clinic.Clinic", on_delete=models.CASCADE)
-    note_pre_appointement = models.CharField(_("note pré rendez-vous "), max_length=2048)
-    note_post_appointement = models.CharField(_("note après le rendez-vous"), max_length=2048)
-    waiting_examination = models.DateTimeField(_("Dans la salle d'attente"), default=None)
-    start_examination = models.DateTimeField(_("Début de l'examen"), default=None)
-    end_examination = models.DateTimeField(_("Fin de l'examen"), default=None)
+    note_pre_appointement = models.CharField(_("note pré rendez-vous "), max_length=2048, blank=True, null=True)
+    note_post_appointement = models.CharField(_("note après le rendez-vous"), max_length=2048, blank=True, null=True)
+    waiting_examination = models.DateTimeField(_("Dans la salle d'attente"), default=None, blank=True, null=True)
+    start_examination = models.DateTimeField(_("Début de l'examen"), default=None, blank=True, null=True)
+    end_examination = models.DateTimeField(_("Fin de l'examen"), default=None, blank=True, null=True)
     objects = AppointementManager()
 
     class Meta:
         rules_permissions = {
-            "add": rules.is_superuser,
+            "add": (is_doctor | is_receptionist),
             "change": (rules.is_superuser | is_doctor_and_same_clinic | is_receptionist_same_clinic),
             "delete": rules.is_superuser,
             "view": (rules.is_superuser | is_doctor_and_same_clinic | is_receptionist_same_clinic),
