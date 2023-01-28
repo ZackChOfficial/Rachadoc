@@ -1,3 +1,9 @@
 from django.contrib import admin
+from events.models import Appointement
 
-# Register your models here.
+
+class AppointementAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Appointement, AppointementAdmin)
