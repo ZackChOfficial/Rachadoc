@@ -1,4 +1,3 @@
-import json
 from channels.generic.websocket import JsonWebsocketConsumer
 from asgiref.sync import async_to_sync
 
@@ -14,7 +13,8 @@ class EventstConsumer(JsonWebsocketConsumer):
         pass
 
     def send_updates(self, data):
-        pass
+        appointement = data["data"]
+        self.send_json(appointement)
 
     def disconnect(self, code):
         if self.scope["clinic"]:
