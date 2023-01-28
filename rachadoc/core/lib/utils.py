@@ -13,7 +13,7 @@ def getDoctorFromRequest(request) -> Optional[Doctor]:
         return None
 
 
-def getReceptionistFromRequest(request) -> Optional[Doctor]:
+def getReceptionistFromRequest(request) -> Optional[Receptionist]:
     user: User = request.user
     if not user:
         return None
