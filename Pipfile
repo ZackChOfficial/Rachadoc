@@ -11,6 +11,8 @@ django-environ = "*"
 psycopg2 = "*"
 django-rosetta = "*"
 djangorestframework = "==3.*"
+django-filter = "*"
+orjson = "*"
 
 [dev-packages]
 
