@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from accounts.serializers import PatientSerializer, DoctorSerializer, ReceptionistSerializer
+from accounts.serializers import PatientSerializer, DoctorSerializer, ReceptionistSerializer, UserSerializer
 from accounts.models import Patient, Doctor, Receptionist, User
 from rest_framework.response import Response
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
@@ -8,13 +8,47 @@ from clinic.models import Clinic
 from common.models import Expertise
 from core.lib.utils import get_object_or_none
 from rest_framework import status
+from core.lib.utils import getDoctorFromRequest, getReceptionistFromRequest
+from django.contrib.auth import get_user_model
+from rest_framework.decorators import action
+from django.conf import settings
 
-from core.lib.utils import getDoctorFromRequest
+from core.lib.utils import get_user_profile
+from django.shortcuts import redirect
+
+User = get_user_model()
+
+
+class UserViewSet(viewsets.ViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    @action(detail=False, methods=["get"])
+    def me(self, request, *args, **kwargs):
+        profile = get_user_profile(request.user)
+        if profile == settings.DOCTOR:
+            doctor = getDoctorFromRequest(request)
+            serializer = DoctorSerializer(doctor)
+            return Response(serializer.data)
+        elif profile == settings.RECEPTIONIST:
+            doctor = getDoctorFromRequest(request)
+            serializer = ReceptionistSerializer(doctor)
+            return Response(serializer.data)
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
 
 class PatientViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = PatientSerializer
     queryset = Patient.objects.all()
+
+    permission_type_map = {**AutoPermissionViewSetMixin.permission_type_map, "all": "list"}
+
+    @action(detail=False, methods=["get"])
+    def all(self, request, *args, **kwargs):
+        qs = self.filter_queryset(self.get_queryset())
+        serialized = PatientSerializer(qs, many=True)
+        return Response(serialized.data, status=status.HTTP_200_OK)
 
 
 class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
@@ -90,6 +124,10 @@ class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
 class ReceptionistViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ReceptionistSerializer
     queryset = Receptionist.objects.all()
+
+    permission_type_map = {
+        **AutoPermissionViewSetMixin.permission_type_map,
+    }
 
     def create(self, request):
         clinic_id = request.data.get("clinic")

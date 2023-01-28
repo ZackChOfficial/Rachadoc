@@ -3,12 +3,34 @@ from rest_flex_fields import FlexFieldsModelSerializer
 from clinic.serializers import ClinicSerializer
 from common.serializers import ExpertiseSerializer
 from django.contrib.auth.models import Group
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 class GroupSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Group
         fields = ("id", "name")
+
+
+class UserSerializer(FlexFieldsModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "cnie",
+            "date_of_birth",
+            "gender",
+            "picture",
+            "email_verified",
+            "phone_verified",
+        )
 
 
 class PatientSerializer(FlexFieldsModelSerializer):
