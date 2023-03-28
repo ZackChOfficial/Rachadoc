@@ -25,14 +25,17 @@ class Event(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):
 
 
 class Appointement(Event):
-    patient = models.ForeignKey("accounts.Patient", on_delete=models.CASCADE)
-    doctor = models.ForeignKey("accounts.Doctor", on_delete=models.CASCADE)
-    clinic = models.ForeignKey("clinic.Clinic", on_delete=models.CASCADE)
-    note_pre_appointement = models.CharField(_("note pré rendez-vous "), max_length=2048, blank=True, null=True)
+    patient = models.ForeignKey("accounts.Patient", on_delete=models.PROTECT, related_name="_appointements")
+    doctor = models.ForeignKey("accounts.Doctor", on_delete=models.PROTECT, related_name="_appointements")
+    clinic = models.ForeignKey("clinic.Clinic", on_delete=models.PROTECT, related_name="_appointements")
+    note_pre_appointement = models.CharField(_("note pré rendez-vous"), max_length=2048, blank=True, null=True)
     note_post_appointement = models.CharField(_("note après le rendez-vous"), max_length=2048, blank=True, null=True)
     waiting_examination = models.DateTimeField(_("Dans la salle d'attente"), default=None, blank=True, null=True)
     start_examination = models.DateTimeField(_("Début de l'examen"), default=None, blank=True, null=True)
     end_examination = models.DateTimeField(_("Fin de l'examen"), default=None, blank=True, null=True)
+    send_sms = models.BooleanField(_("envoyer sms rappel"), default=False)
+    send_email = models.BooleanField(_("envoyer email rappel"), default=False)
+    creator = models.ForeignKey("accounts.User", on_delete=models.SET_NULL, related_name="_creator", null=True)
     objects = AppointementManager()
 
     class Meta:
