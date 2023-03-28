@@ -14,3 +14,5 @@ cov.xml
 htmlcov
 .pytest_cache
 
+.DS_Store
+celerybeat-schedule
