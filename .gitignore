@@ -16,3 +16,8 @@ htmlcov
 
 .DS_Store
 celerybeat-schedule
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
