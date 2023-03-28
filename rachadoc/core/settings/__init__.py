@@ -14,7 +14,10 @@ from pathlib import Path
 import environ
 from django.utils.translation import gettext_lazy as _
 
-env = environ.Env()
+env = environ.Env(
+    LOCAL_BROKER_URL=(str, "redis://127.0.0.1/3"),
+    LOCAL_CELERY_RESULT_BACKEND=(str, "redis://127.0.0.1/3"),
+)
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -51,6 +54,8 @@ INSTALLED_APPS = [
     "rest_framework_gis",
     "django_filters",
     "rules",
+    "anymail",
+    "django_celery_beat",
     "core",
     "accounts",
     "agendasetting",
@@ -183,5 +188,15 @@ CHANNEL_LAYERS = {
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = ("http://localhost:5173",)
 
+EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
+DEFAULT_FROM_EMAIL = "noreply@rachadoc.com"
+SERVER_EMAIL = "root@rachadoc.com"
+
+ANYMAIL = {
+    "SENDINBLUE_API_KEY": env("SENDINBLUE_KEY"),
+}
+
 from .api import *
 from .business import *
+from .celeryconf import *
+from .celery_beat import *

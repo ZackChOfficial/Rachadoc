@@ -5,3 +5,6 @@ PATIENT = "Patient"
 RECEPTIONIST = "Receptionist"
 SUPERUSER = "Superuser"
 ANONYMOUS = "Anonymous"
+
+
+APPOINTEMENT_NOTIFICATION_TEMPLATE_ID = 1
