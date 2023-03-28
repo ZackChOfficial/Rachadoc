@@ -4,7 +4,9 @@ from clinic.serializers import ClinicSerializer
 from common.serializers import ExpertiseSerializer
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
-
+from rest_framework import serializers
+from django.utils.translation import gettext_lazy as _
+import re
 
 User = get_user_model()
 
@@ -46,12 +48,17 @@ class PatientSerializer(FlexFieldsModelSerializer):
             "address",
             "CIVIL_STATUS",
             "insurance",
-            "password",
+            "phone_number",
         )
         extra_kwargs = {
-            "password": {"write_only": True},
             "id": {"read_only": True},
         }
+
+    def validate_phone_number(self, value):
+        pattern = "^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$"
+        if value and not re.match(pattern, value):
+            raise serializers.ValidationError(_("numero de telephone est invalid"))
+        return value
 
 
 class DoctorSerializer(FlexFieldsModelSerializer):
@@ -87,7 +94,17 @@ class DoctorSerializer(FlexFieldsModelSerializer):
 class ReceptionistSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Receptionist
-        fields = ("id", "password", "email", "first_name", "last_name", "date_joined", "clinic")
+        fields = (
+            "id",
+            "password",
+            "email",
+            "first_name",
+            "last_name",
+            "date_joined",
+            "clinic",
+            "is_active",
+            "phone_number",
+        )
         extra_kwargs = {"id": {"read_only": True}, "password": {"write_only": True}}
         expandable_fields = {
             "clinic": (ClinicSerializer),
