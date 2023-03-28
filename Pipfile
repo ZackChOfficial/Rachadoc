@@ -13,6 +13,9 @@ django-rosetta = "*"
 djangorestframework = "==3.*"
 django-filter = "*"
 orjson = "*"
+celery = "*"
+django-anymail = {extras = ["sendgrid"], version = "*"}
+django-celery-beat = "*"
 
 [dev-packages]
 
