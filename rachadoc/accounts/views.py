@@ -29,13 +29,17 @@ class UserViewSet(viewsets.ViewSet):
         if profile == settings.DOCTOR:
             doctor = getDoctorFromRequest(request)
             serializer = DoctorSerializer(doctor)
-            return Response(serializer.data)
+            return Response({"profile": profile, **serializer.data})
         elif profile == settings.RECEPTIONIST:
             doctor = getDoctorFromRequest(request)
             serializer = ReceptionistSerializer(doctor)
-            return Response(serializer.data)
+            return Response({"profile": profile, **serializer.data})
         serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+        data = {
+            "profile": profile,
+            **serializer.data,
+        }
+        return Response(data)
 
 
 class PatientViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
@@ -49,6 +53,13 @@ class PatientViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
         qs = self.filter_queryset(self.get_queryset())
         serialized = PatientSerializer(qs, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
+
+    def create(self, request):
+        serialized_data = PatientSerializer(data=request.data)
+        if not serialized_data.is_valid():
+            return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
+        patient = Patient.objects.create(password="", **serialized_data.validated_data)
+        return Response(PatientSerializer(patient).data)
 
 
 class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
@@ -82,7 +93,7 @@ class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     @action(detail=True, methods=["patch"])
     def add_clinic(self, request, pk=None):
         doctor = self.get_object()
-        clinic = get_object_or_none(Clinic, request.data.get("clinic"))
+        clinic = get_object_or_none(Clinic, id=request.data.get("clinic"))
         data = {"amount": request.data.get("amount"), "title": "title example", "description": "description"}
         if clinic:
             doctor.clinics.add(clinic, through_defaults=data)
@@ -93,7 +104,7 @@ class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     @action(detail=True, methods=["patch"])
     def remove_clinic(self, request, pk=None):
         doctor = self.get_object()
-        clinic = get_object_or_none(Clinic, request.data.get("clinic"))
+        clinic = get_object_or_none(Clinic, id=request.data.get("clinic"))
         if clinic:
             doctor.clinics.remove(clinic)
             return Response(DoctorSerializer(doctor).data)
@@ -103,7 +114,7 @@ class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     @action(detail=True, methods=["patch"])
     def add_expertise(self, request, pk=None):
         doctor = self.get_object()
-        expertise = get_object_or_none(Expertise, request.data.get("expertise"))
+        expertise = get_object_or_none(Expertise, id=request.data.get("expertise"))
         if expertise:
             doctor.expertises.add(expertise)
             return Response(DoctorSerializer(doctor).data)
@@ -113,7 +124,7 @@ class DoctorViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     @action(detail=True, methods=["patch"])
     def remove_expertise(self, request, pk=None):
         doctor = self.get_object()
-        expertise = get_object_or_none(Expertise, request.data.get("expertise"))
+        expertise = get_object_or_none(Expertise, id=request.data.get("expertise"))
         if expertise:
             doctor.expertises.remove(expertise)
             return Response(DoctorSerializer(doctor).data)
@@ -125,9 +136,7 @@ class ReceptionistViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ReceptionistSerializer
     queryset = Receptionist.objects.all()
 
-    permission_type_map = {
-        **AutoPermissionViewSetMixin.permission_type_map,
-    }
+    permission_type_map = {**AutoPermissionViewSetMixin.permission_type_map, "receptionist_by_clinic": "list"}
 
     def create(self, request):
         clinic_id = request.data.get("clinic")
@@ -152,4 +161,17 @@ class ReceptionistViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
         serializer = self.get_serializer(instance, data=data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"])
+    def receptionist_by_clinic(self, request):
+        clinic_id = request.query_params.get("clinic_id")
+        if not clinic_id:
+            return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+        doctor = get_object_or_none(Doctor, id=self.request.user.id)
+        if not doctor or not doctor.clinics.filter(id=clinic_id).exists():
+            return Response({"message": "unauthorized"}, status=status.HTTP_403_FORBIDDEN)
+        queryset = self.filter_queryset(self.get_queryset())
+        queryset = queryset.filter(clinic__id=clinic_id)
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)

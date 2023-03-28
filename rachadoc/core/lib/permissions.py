@@ -25,7 +25,7 @@ def is_doctor_and_same_clinic(user, obj):
     from accounts.models import Doctor
     from core.lib.utils import get_object_or_none
 
-    doctor = get_object_or_none(Doctor, user.id)
+    doctor = get_object_or_none(Doctor, id=user.id)
     if not doctor:
         return False
     return doctor.clinics.filter(id=obj.clinic.id).exists()

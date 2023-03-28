@@ -23,9 +23,9 @@ def getReceptionistFromRequest(request) -> Optional[Receptionist]:
         return None
 
 
-def get_object_or_none(model, pk):
+def get_object_or_none(model, **kwargs):
     try:
-        return model.objects.get(id=pk)
+        return model.objects.get(**kwargs)
     except model.DoesNotExist:
         return None
 
