@@ -16,6 +16,9 @@ orjson = "*"
 celery = "*"
 django-anymail = {extras = ["sendgrid"], version = "*"}
 django-celery-beat = "*"
+gunicorn = "20.1.0"
+daphne = "4.0.0"
+supervisor = "4.2.5"
 
 [dev-packages]
 
