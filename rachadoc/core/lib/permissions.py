@@ -44,11 +44,12 @@ def is_event_owner(user, obj):
 @predicate
 def is_receptionist_same_clinic(user, obj):
     from accounts.models import Receptionist
+    from core.lib.utils import get_object_or_none
 
-    is_receptionist: Receptionist = Receptionist.objects.filter(id=user.id).exists()
-    if not is_receptionist:
+    receptionist: Receptionist = get_object_or_none(Receptionist, id=user.id)
+    if not receptionist:
         return False
-    return obj.clinic.id == is_receptionist.clinic.id
+    return obj.clinic.id == receptionist.clinic.id
 
 
 @predicate

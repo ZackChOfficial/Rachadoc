@@ -18,7 +18,7 @@ def getReceptionistFromRequest(request) -> Optional[Receptionist]:
     if not user:
         return None
     try:
-        return Receptionist.objects.get(user__id=user.id)
+        return Receptionist.objects.get(id=user.id)
     except Receptionist.DoesNotExist:
         return None
 

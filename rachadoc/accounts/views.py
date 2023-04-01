@@ -156,7 +156,7 @@ class ReceptionistViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
         partial = kwargs.pop("partial", False)
         instance = self.get_object()
         data = request.data
-        if "clinic" in data:
+        if "clinic" not in data:
             return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = self.get_serializer(instance, data=data, partial=partial)
         serializer.is_valid(raise_exception=True)

@@ -80,7 +80,7 @@ class Receptionist(User):
         rules_permissions = {
             "add": (rules.is_superuser | is_doctor),
             "change": (rules.is_superuser | is_doctor_and_same_clinic),
-            "delete": rules.is_superuser,
+            "delete": (rules.is_superuser | is_doctor_and_same_clinic),
             "view": (rules.is_superuser | is_doctor_and_same_clinic),
             "list": rules.is_superuser | is_doctor,
         }

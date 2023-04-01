@@ -13,6 +13,7 @@ class EventstConsumer(JsonWebsocketConsumer):
 
     def receive_json(self, content, **kwargs):
         pass
+
     def send_updates(self, data):
         appointement = data["data"]
         self.send_json(appointement)
