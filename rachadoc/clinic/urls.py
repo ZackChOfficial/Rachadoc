@@ -1,5 +1,5 @@
 from rest_framework import routers
-from clinic.views import ClinicViewSet
+from rachadoc.clinic.views import ClinicViewSet
 
 router = routers.SimpleRouter()
 

@@ -5,8 +5,8 @@ from oauth2_provider.models import AccessToken
 from django.contrib.auth.models import AnonymousUser
 from django.conf import settings
 from core.lib.utils import get_user_profile
-from clinic.models import Clinic
-from accounts.models import Doctor, Receptionist
+from rachadoc.clinic.models import Clinic
+from rachadoc.accounts.models import Doctor, Receptionist
 
 
 @database_sync_to_async

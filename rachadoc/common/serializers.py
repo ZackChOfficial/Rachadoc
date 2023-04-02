@@ -1,5 +1,5 @@
 from rest_flex_fields import FlexFieldsModelSerializer
-from common.models import Tarif, Picture, Expertise
+from rachadoc.common.models import Tarif, Picture, Expertise
 
 
 class TarifSerializer(FlexFieldsModelSerializer):

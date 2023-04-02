@@ -1,8 +1,8 @@
 from django.db import models
-from notification.managers import NotificationManager
+from rachadoc.notification.managers import NotificationManager
 from django.utils.translation import gettext_lazy as _
 import uuid
-from notification.choices import STATUS_CHOICES, CHANNEL_CHOICES
+from rachadoc.notification.choices import STATUS_CHOICES, CHANNEL_CHOICES
 from core.lib.mixins import BaseTimestampedModel
 
 

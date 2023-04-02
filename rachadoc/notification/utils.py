@@ -5,14 +5,14 @@ from django.utils import timezone
 from django.core.mail import EmailMessage
 from django.conf import settings
 
-from notification.models import AppointementNotification
-from notification.exceptions import NotificationsNotCreated
+from rachadoc.notification.models import AppointementNotification
+from rachadoc.notification.exceptions import NotificationsNotCreated
 
-from events.models import Appointement
+from rachadoc.events.models import Appointement
 import notification.choices as choices
-from notification.models import AppointementNotification
+from rachadoc.notification.models import AppointementNotification
 from datetime import timedelta, datetime
-from notification.exceptions import NotificationsNotCreated
+from rachadoc.notification.exceptions import NotificationsNotCreated
 from core.lib.utils import get_object_or_none
 
 

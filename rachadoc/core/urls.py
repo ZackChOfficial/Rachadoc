@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
-from events.urls import websocket_urlpatterns as events_websocket_urlpatterns
+from rachadoc.events.urls import websocket_urlpatterns as events_websocket_urlpatterns
 
 urlpatterns = [
     path("overseas/", admin.site.urls),

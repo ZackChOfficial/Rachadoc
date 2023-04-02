@@ -8,21 +8,21 @@ def is_obj_owner(user, obj):
 
 @predicate
 def is_doctor(user):
-    from accounts.models import Doctor
+    from rachadoc.accounts.models import Doctor
 
     return Doctor.objects.filter(id=user.id).exists()
 
 
 @predicate
 def is_receptionist(user):
-    from accounts.models import Receptionist
+    from rachadoc.accounts.models import Receptionist
 
     return Receptionist.objects.filter(id=user.id).exists()
 
 
 @predicate
 def is_doctor_and_same_clinic(user, obj):
-    from accounts.models import Doctor
+    from rachadoc.accounts.models import Doctor
     from core.lib.utils import get_object_or_none
 
     doctor = get_object_or_none(Doctor, id=user.id)
@@ -33,7 +33,7 @@ def is_doctor_and_same_clinic(user, obj):
 
 @predicate
 def is_event_owner(user, obj):
-    from accounts.models import Doctor
+    from rachadoc.accounts.models import Doctor
 
     is_doctor = Doctor.objects.filter(id=user.id).exists()
     if not is_doctor:
@@ -43,7 +43,7 @@ def is_event_owner(user, obj):
 
 @predicate
 def is_receptionist_same_clinic(user, obj):
-    from accounts.models import Receptionist
+    from rachadoc.accounts.models import Receptionist
     from core.lib.utils import get_object_or_none
 
     receptionist: Receptionist = get_object_or_none(Receptionist, id=user.id)
@@ -54,7 +54,7 @@ def is_receptionist_same_clinic(user, obj):
 
 @predicate
 def is_doctor_and_tarif_owner(user, obj):
-    from accounts.models import Doctor
+    from rachadoc.accounts.models import Doctor
 
     is_doctor = Doctor.objects.filter(id=user.id).exists()
     if not is_doctor:
@@ -64,7 +64,7 @@ def is_doctor_and_tarif_owner(user, obj):
 
 @predicate
 def is_doctor_and_AgendaSetting_owner(user, obj):
-    from accounts.models import Doctor
+    from rachadoc.accounts.models import Doctor
 
     is_doctor = Doctor.objects.filter(id=user.id).exists()
     if not is_doctor:

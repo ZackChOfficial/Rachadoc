@@ -1,5 +1,5 @@
 from rest_flex_fields import FlexFieldsModelSerializer
-from clinic.models import Clinic
+from rachadoc.clinic.models import Clinic
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 

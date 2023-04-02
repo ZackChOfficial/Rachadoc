@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from events.models import Appointement
+from rachadoc.events.models import Appointement
 from django_filters import DateFromToRangeFilter
 
 

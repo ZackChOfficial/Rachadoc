@@ -1,7 +1,7 @@
 from rest_flex_fields import FlexFieldsModelSerializer
-from events.models import Appointement, Personal as PersonalEvent, Event
-from clinic.serializers import ClinicSerializer
-from accounts.serializers import PatientSerializer, DoctorSerializer, UserSerializer
+from rachadoc.events.models import Appointement, Personal as PersonalEvent, Event
+from rachadoc.clinic.serializers import ClinicSerializer
+from rachadoc.accounts.serializers import PatientSerializer, DoctorSerializer, UserSerializer
 from rest_framework import serializers
 
 

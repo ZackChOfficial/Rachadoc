@@ -1,7 +1,7 @@
-from accounts.models import Patient, Doctor, Receptionist
+from rachadoc.accounts.models import Patient, Doctor, Receptionist
 from rest_flex_fields import FlexFieldsModelSerializer
-from clinic.serializers import ClinicSerializer
-from common.serializers import ExpertiseSerializer
+from rachadoc.clinic.serializers import ClinicSerializer
+from rachadoc.common.serializers import ExpertiseSerializer
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 from rest_framework import serializers

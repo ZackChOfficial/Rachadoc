@@ -1,7 +1,7 @@
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
-from accounts.models import User
+from rachadoc.accounts.models import User
 
 
 class BaseUserAdmin(DjangoUserAdmin):

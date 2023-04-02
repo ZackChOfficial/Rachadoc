@@ -1,5 +1,5 @@
 from django.db import models
-from clinic.managers import ClinicManager
+from rachadoc.clinic.managers import ClinicManager
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 import rules

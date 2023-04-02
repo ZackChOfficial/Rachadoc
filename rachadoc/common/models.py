@@ -1,5 +1,5 @@
 from django.db import models
-from common.managers import TarifManager, PictureManager, ExpertiseManager
+from rachadoc.common.managers import TarifManager, PictureManager, ExpertiseManager
 from django.utils.translation import gettext_lazy as _
 from core.lib.mixins import BaseTimestampedModel
 from rules.contrib.models import RulesModelMixin, RulesModelBase

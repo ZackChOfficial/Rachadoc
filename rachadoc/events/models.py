@@ -1,8 +1,8 @@
 from django.db import models
-from events.managers import EventManager, AppointementManager, PersonalManager
+from rachadoc.events.managers import EventManager, AppointementManager, PersonalManager
 from core.lib.mixins import BaseTimestampedModel
 from django.utils.translation import gettext_lazy as _
-from events.choices import Status
+from rachadoc.events.choices import Status
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 import rules
 from core.lib.permissions import (

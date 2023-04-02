@@ -2,7 +2,7 @@ from django.db import models, transaction
 from django.contrib.auth.models import BaseUserManager as DjangoBaseUserManager
 from django.contrib.auth.models import Group
 
-from clinic.models import Clinic
+from rachadoc.clinic.models import Clinic
 
 
 class BaseUserManager(DjangoBaseUserManager):

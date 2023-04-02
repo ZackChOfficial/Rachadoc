@@ -1,8 +1,8 @@
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from events.models import Appointement
+from rachadoc.events.models import Appointement
 from django.core.exceptions import ValidationError
-from events.choices import Status
+from rachadoc.events.choices import Status
 from django.utils import timezone
 
 

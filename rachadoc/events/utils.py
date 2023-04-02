@@ -1,8 +1,8 @@
-from events.models import Appointement
+from rachadoc.events.models import Appointement
 from django.utils.translation import gettext_lazy as _
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, Protection
-from events.choices import Status
+from rachadoc.events.choices import Status
 import datetime
 
 

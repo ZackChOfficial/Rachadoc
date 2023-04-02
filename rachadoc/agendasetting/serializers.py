@@ -1,7 +1,7 @@
 from rest_flex_fields import FlexFieldsModelSerializer
-from agendasetting.models import AgendaSetting, ClinicAgendaSetting, DoctorAgendaSetting
-from clinic.serializers import ClinicSerializer
-from accounts.serializers import DoctorSerializer
+from rachadoc.agendasetting.models import AgendaSetting, ClinicAgendaSetting, DoctorAgendaSetting
+from rachadoc.clinic.serializers import ClinicSerializer
+from rachadoc.accounts.serializers import DoctorSerializer
 
 
 class AgendaSettingSerializer(FlexFieldsModelSerializer):

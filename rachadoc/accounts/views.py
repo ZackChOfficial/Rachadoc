@@ -1,11 +1,11 @@
 from rest_framework import viewsets
-from accounts.serializers import PatientSerializer, DoctorSerializer, ReceptionistSerializer, UserSerializer
-from accounts.models import Patient, Doctor, Receptionist, User
+from rachadoc.accounts.serializers import PatientSerializer, DoctorSerializer, ReceptionistSerializer, UserSerializer
+from rachadoc.accounts.models import Patient, Doctor, Receptionist, User
 from rest_framework.response import Response
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 from rest_framework.decorators import action
-from clinic.models import Clinic
-from common.models import Expertise
+from rachadoc.clinic.models import Clinic
+from rachadoc.common.models import Expertise
 from core.lib.utils import get_object_or_none
 from rest_framework import status
 from core.lib.utils import getDoctorFromRequest, getReceptionistFromRequest

@@ -1,20 +1,20 @@
 from rest_framework import viewsets
-from events.serializers import AppointementSerializer, PersonalSerializer
-from events.models import Appointement, Personal as PersonalEvent
+from rachadoc.events.serializers import AppointementSerializer, PersonalSerializer
+from rachadoc.events.models import Appointement, Personal as PersonalEvent
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 from rest_framework import status
 from rest_framework.response import Response
 
 from core.lib.utils import getDoctorFromRequest, getReceptionistFromRequest, get_object_or_none, get_user_profile
-from accounts.models import Doctor, Patient
-from events.filters import AppointementFilter
+from rachadoc.accounts.models import Doctor, Patient
+from rachadoc.events.filters import AppointementFilter
 from rest_framework.decorators import action
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 import orjson
 from django.utils import timezone
 from datetime import timedelta
-from events.choices import Status
+from rachadoc.events.choices import Status
 from django.db.models import Q, Count
 from django.conf import settings
 from djangorestframework_camel_case.util import camelize

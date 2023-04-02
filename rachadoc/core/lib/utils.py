@@ -1,4 +1,4 @@
-from accounts.models import Doctor, Patient, Receptionist, User
+from rachadoc.accounts.models import Doctor, Patient, Receptionist, User
 from typing import Optional
 from django.conf import settings
 

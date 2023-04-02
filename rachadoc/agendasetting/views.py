@@ -1,10 +1,10 @@
 from rest_framework import viewsets
-from agendasetting.serializers import (
+from rachadoc.agendasetting.serializers import (
     ClinicAgendaSettingSerializer,
     DoctorAgendaSettingSerializer,
 )
-from agendasetting.models import ClinicAgendaSetting, DoctorAgendaSetting
-from accounts.models import User, Doctor
+from rachadoc.agendasetting.models import ClinicAgendaSetting, DoctorAgendaSetting
+from rachadoc.accounts.models import User, Doctor
 from core.lib.utils import getDoctorFromRequest
 from django.db.models import QuerySet
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin

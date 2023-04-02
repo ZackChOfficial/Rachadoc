@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from common.models import Tarif, Picture, Expertise
-from common.serializers import TarifSerializer, PictureSerializer, ExpertiseSerializer
+from rachadoc.common.models import Tarif, Picture, Expertise
+from rachadoc.common.serializers import TarifSerializer, PictureSerializer, ExpertiseSerializer
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 
 

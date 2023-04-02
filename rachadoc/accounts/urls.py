@@ -1,5 +1,5 @@
 from rest_framework import routers
-from accounts.views import PatientViewSet, DoctorViewSet, ReceptionistViewSet, UserViewSet
+from rachadoc.accounts.views import PatientViewSet, DoctorViewSet, ReceptionistViewSet, UserViewSet
 
 router = routers.SimpleRouter()
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from events.models import Appointement
+from rachadoc.events.models import Appointement
 
 
 class AppointementAdmin(admin.ModelAdmin):

@@ -3,9 +3,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 import uuid
 from core.settings.business import DEFAULT_APPOINTEMENT_DURATION
-from accounts.managers import BaseUserManager, PatientManager, DoctorManager, ReceptionistManager
-from common.models import Expertise
-from accounts.choices import GENDERS, CIVIL_STATUS, INSURANCES
+from rachadoc.accounts.managers import BaseUserManager, PatientManager, DoctorManager, ReceptionistManager
+from rachadoc.common.models import Expertise
+from rachadoc.accounts.choices import GENDERS, CIVIL_STATUS, INSURANCES
 import rules
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from notification.models import Notification, AppointementNotification
+from rachadoc.notification.models import Notification, AppointementNotification
 
 
 class NotificationAdmin(admin.ModelAdmin):

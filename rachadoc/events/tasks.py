@@ -1,7 +1,7 @@
 from celery import shared_task
 from django.utils import timezone
-from notification.utils import send_appointement_email_notification
-from notification.models import AppointementNotification
+from rachadoc.notification.utils import send_appointement_email_notification
+from rachadoc.notification.models import AppointementNotification
 import notification.choices as choices
 from django.conf import settings
 

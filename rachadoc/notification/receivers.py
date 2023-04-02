@@ -1,12 +1,12 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from events.models import Appointement
-from notification.utils import (
+from rachadoc.events.models import Appointement
+from rachadoc.notification.utils import (
     create_or_update_email_appointement_notification,
     create_or_update_sms_appointement_notification,
 )
-from notification.exceptions import NotificationsNotCreated
-from notification.models import AppointementNotification
+from rachadoc.notification.exceptions import NotificationsNotCreated
+from rachadoc.notification.models import AppointementNotification
 import notification.choices as choices
 
 

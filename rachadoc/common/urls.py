@@ -1,5 +1,5 @@
 from rest_framework import routers
-from common.views import TarifViewSet, PictureViewSet, ExpertiseViewSet
+from rachadoc.common.views import TarifViewSet, PictureViewSet, ExpertiseViewSet
 
 router = routers.SimpleRouter()
 

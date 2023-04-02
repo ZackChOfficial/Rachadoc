@@ -56,13 +56,13 @@ INSTALLED_APPS = [
     "rules",
     "anymail",
     "django_celery_beat",
-    "core",
-    "accounts",
-    "agendasetting",
-    "clinic",
-    "common",
-    "events",
-    "notification",
+    "rachadoc.core",
+    "rachadoc.accounts",
+    "rachadoc.agendasetting",
+    "rachadoc.clinic",
+    "rachadoc.common",
+    "rachadoc.events",
+    "rachadoc.notification",
 ]
 
 MIDDLEWARE = [

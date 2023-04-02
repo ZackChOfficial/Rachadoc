@@ -1,5 +1,5 @@
 from rest_framework import routers
-from agendasetting.views import ClinicAgendaSettingViewSet, DoctorAgendaSettingViewSet
+from rachadoc.agendasetting.views import ClinicAgendaSettingViewSet, DoctorAgendaSettingViewSet
 
 router = routers.SimpleRouter()
 

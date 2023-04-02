@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from clinic.models import Clinic
-from clinic.serializers import ClinicSerializer
+from rachadoc.clinic.models import Clinic
+from rachadoc.clinic.serializers import ClinicSerializer
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 
 
