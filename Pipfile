@@ -3,26 +3,35 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+manage = "python rachadoc/manage.py"
+
 [packages]
-django-extensions = "*"
-black = "*"
-django = "==4.*"
-django-environ = "*"
+django-extensions = "==3.2.*"
+black = "==23.3.*"
+django = "==4.2"
+django-environ = "==0.10.0"
 psycopg2-binary = "2.9.5"
-django-rosetta = "*"
+django-rosetta = "==0.9.8"
 djangorestframework = "==3.*"
-django-filter = "*"
-orjson = "*"
-celery = "*"
-django-anymail = {extras = ["sendgrid"], version = "*"}
-django-celery-beat = "*"
+django-filter = "==23.1"
+orjson = "==3.8.9"
+celery = "==5.2.*"
+django-anymail = {extras = ["sendgrid"], version = "==9.1"}
+django-celery-beat = "==2.5.*"
 gunicorn = "20.1.0"
 daphne = "4.0.0"
 supervisor = "4.2.5"
-django-cors-headers = "*"
-django-oauth-toolkit = "*"
-djangorestframework-gis = "*"
-rules = "*"
+django-cors-headers = "==3.14.*"
+django-oauth-toolkit = "==2.2.*"
+djangorestframework-gis = "==1.0"
+rules = "==3.3"
+djangorestframework-camel-case = "==1.4.*"
+channels = "==4.0.*"
+channels-redis = "==4.1.*"
+drf-flex-fields = "==1.0.*"
+django-storages = "==1.13.*"
+boto3 = "==1.26.*"
 
 [dev-packages]
 
