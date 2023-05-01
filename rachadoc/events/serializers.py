@@ -11,13 +11,10 @@ class EventSerializer(FlexFieldsModelSerializer):
         fields = ("id", "title", "start", "end", "status")
 
 
-class AppointementSerializer(FlexFieldsModelSerializer):
-    patient = serializers.SerializerMethodField()
-
+class BaseAppointementSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Appointement
         fields = EventSerializer.Meta.fields + (
-            "patient",
             "doctor",
             "clinic",
             "note_pre_appointement",
@@ -32,6 +29,20 @@ class AppointementSerializer(FlexFieldsModelSerializer):
             "creator": {"read_only": True},
         }
         expandable_fields = {"clinic": (ClinicSerializer), "doctor": DoctorSerializer}
+
+    def get_patient(self, obj):
+        if isinstance(obj, Appointement):
+            fields = ["id", "first_name", "last_name", "email", "phone_number"]
+            patient = PatientSerializer(instance=obj.patient, read_only=True, fields=fields)
+            return patient.data
+        return self.initial_data["patient"]
+
+
+class AppointementSerializer(BaseAppointementSerializer):
+    patient = serializers.SerializerMethodField()
+
+    class Meta(BaseAppointementSerializer.Meta):
+        fields = BaseAppointementSerializer.Meta.fields + ("patient",)
 
     def get_patient(self, obj):
         if isinstance(obj, Appointement):

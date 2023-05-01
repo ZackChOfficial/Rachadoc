@@ -1,11 +1,17 @@
 from rest_framework import viewsets
-from rachadoc.events.serializers import AppointementSerializer, PersonalSerializer
+from rachadoc.events.serializers import AppointementSerializer, BaseAppointementSerializer, PersonalSerializer
 from rachadoc.events.models import Appointement, Personal as PersonalEvent
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 from rest_framework import status
 from rest_framework.response import Response
+from django.core.exceptions import ValidationError
 
-from core.lib.utils import getDoctorFromRequest, getReceptionistFromRequest, get_object_or_none, get_user_profile
+from rachadoc.core.lib.utils import (
+    getDoctorFromRequest,
+    getReceptionistFromRequest,
+    get_object_or_none,
+    get_user_profile,
+)
 from rachadoc.accounts.models import Doctor, Patient
 from rachadoc.events.filters import AppointementFilter
 from rest_framework.decorators import action
@@ -34,6 +40,7 @@ class AppointementViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
         **AutoPermissionViewSetMixin.permission_type_map,
         "all": "list",
         "events_stats": "list",
+        "patient_appointements": "list",
     }
 
     def get_queryset(self):
@@ -75,7 +82,10 @@ class AppointementViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
         return Response(data, status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
-        super().update(request, *args, **kwargs)
+        try:
+            super().update(request, *args, **kwargs)
+        except ValidationError as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
         appointement = self.get_object()
         serializer = self.get_serializer(appointement)
         data = orjson.loads(orjson.dumps(serializer.data))
@@ -86,6 +96,14 @@ class AppointementViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
     def all(self, request, *args, **kwargs):
         qs = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["get"])
+    def patient_appointements(self, request, *args, **kwargs):
+        patient_id = request.query_params.get("patient_id")
+        qs = self.filter_queryset(self.get_queryset())
+        qs = qs.filter(patient__id=patient_id)
+        serializer = BaseAppointementSerializer(qs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def list(self, request, *args, **kwargs):
