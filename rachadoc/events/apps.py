@@ -6,4 +6,4 @@ class EventsConfig(AppConfig):
     name = "rachadoc.events"
 
     def ready(self):
-        import events.receivers  # noqa
+        import rachadoc.events.receivers  # noqa

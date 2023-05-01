@@ -26,10 +26,8 @@ class UserSerializer(FlexFieldsModelSerializer):
             "first_name",
             "last_name",
             "phone_number",
-            "cnie",
             "date_of_birth",
             "gender",
-            "picture",
             "email_verified",
             "phone_verified",
         )
@@ -49,6 +47,8 @@ class PatientSerializer(FlexFieldsModelSerializer):
             "CIVIL_STATUS",
             "insurance",
             "phone_number",
+            "gender",
+            "date_of_birth",
         )
         extra_kwargs = {
             "id": {"read_only": True},

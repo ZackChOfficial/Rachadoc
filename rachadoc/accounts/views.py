@@ -6,14 +6,14 @@ from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 from rest_framework.decorators import action
 from rachadoc.clinic.models import Clinic
 from rachadoc.common.models import Expertise
-from core.lib.utils import get_object_or_none
+from rachadoc.core.lib.utils import get_object_or_none
 from rest_framework import status
-from core.lib.utils import getDoctorFromRequest, getReceptionistFromRequest
+from rachadoc.core.lib.utils import getDoctorFromRequest, getReceptionistFromRequest
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import action
 from django.conf import settings
 
-from core.lib.utils import get_user_profile
+from rachadoc.core.lib.utils import get_user_profile
 from django.shortcuts import redirect
 
 User = get_user_model()

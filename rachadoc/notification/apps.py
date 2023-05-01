@@ -6,4 +6,4 @@ class NotificationConfig(AppConfig):
     name = "rachadoc.notification"
 
     def ready(self):
-        import notification.receivers  # noqa
+        import rachadoc.notification.receivers  # noqa

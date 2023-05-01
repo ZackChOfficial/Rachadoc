@@ -3,7 +3,7 @@ from rachadoc.notification.managers import NotificationManager
 from django.utils.translation import gettext_lazy as _
 import uuid
 from rachadoc.notification.choices import STATUS_CHOICES, CHANNEL_CHOICES
-from core.lib.mixins import BaseTimestampedModel
+from rachadoc.core.lib.mixins import BaseTimestampedModel
 
 
 class Notification(BaseTimestampedModel):

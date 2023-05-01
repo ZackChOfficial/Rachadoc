@@ -9,10 +9,14 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/asgi/
 
 import os
 
+import django
+
+django.setup()
+
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-from core.urls import websocket_urlpatterns
-from core.lib.tokenAuthMiddlewareStack import TokenAuthMiddlewareStack
+from rachadoc.core.urls import websocket_urlpatterns
+from rachadoc.core.lib.tokenAuthMiddlewareStack import TokenAuthMiddlewareStack
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 

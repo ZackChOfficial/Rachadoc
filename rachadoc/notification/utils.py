@@ -9,11 +9,11 @@ from rachadoc.notification.models import AppointementNotification
 from rachadoc.notification.exceptions import NotificationsNotCreated
 
 from rachadoc.events.models import Appointement
-import notification.choices as choices
+import rachadoc.notification.choices as choices
 from rachadoc.notification.models import AppointementNotification
 from datetime import timedelta, datetime
 from rachadoc.notification.exceptions import NotificationsNotCreated
-from core.lib.utils import get_object_or_none
+from rachadoc.core.lib.utils import get_object_or_none
 
 
 def create_or_update_appointement_notification(

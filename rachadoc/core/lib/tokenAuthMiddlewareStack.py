@@ -4,7 +4,7 @@ from channels.middleware import BaseMiddleware
 from oauth2_provider.models import AccessToken
 from django.contrib.auth.models import AnonymousUser
 from django.conf import settings
-from core.lib.utils import get_user_profile
+from rachadoc.core.lib.utils import get_user_profile
 from rachadoc.clinic.models import Clinic
 from rachadoc.accounts.models import Doctor, Receptionist
 

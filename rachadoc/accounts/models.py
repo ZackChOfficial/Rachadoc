@@ -2,14 +2,14 @@ from django.contrib.auth.models import AbstractUser as DjangoAbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 import uuid
-from core.settings.business import DEFAULT_APPOINTEMENT_DURATION
+from rachadoc.core.settings.business import DEFAULT_APPOINTEMENT_DURATION
 from rachadoc.accounts.managers import BaseUserManager, PatientManager, DoctorManager, ReceptionistManager
 from rachadoc.common.models import Expertise
 from rachadoc.accounts.choices import GENDERS, CIVIL_STATUS, INSURANCES
 import rules
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 
-from core.lib.permissions import is_obj_owner, is_doctor, is_doctor_and_same_clinic
+from rachadoc.core.lib.permissions import is_obj_owner, is_doctor, is_doctor_and_same_clinic
 
 
 class User(DjangoAbstractUser, RulesModelMixin, metaclass=RulesModelBase):

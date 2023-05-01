@@ -7,7 +7,7 @@ from rachadoc.notification.utils import (
 )
 from rachadoc.notification.exceptions import NotificationsNotCreated
 from rachadoc.notification.models import AppointementNotification
-import notification.choices as choices
+import rachadoc.notification.choices as choices
 
 
 def delete_notification(appointement: Appointement, channel):

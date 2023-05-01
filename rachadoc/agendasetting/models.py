@@ -1,11 +1,11 @@
 from django.db import models
 from rachadoc.agendasetting.managers import AgendaSettingManager, ClinicAgendaSettingManager, DoctorAgendaSettingManager
-from core.lib.mixins import BaseTimestampedModel
+from rachadoc.core.lib.mixins import BaseTimestampedModel
 from django.utils.translation import gettext_lazy as _
 from rachadoc.agendasetting.choices import WEEKDAYS
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 import rules
-from core.lib.permissions import is_doctor, is_doctor_and_same_clinic, is_doctor_and_AgendaSetting_owner
+from rachadoc.core.lib.permissions import is_doctor, is_doctor_and_same_clinic, is_doctor_and_AgendaSetting_owner
 
 
 class AgendaSetting(BaseTimestampedModel):

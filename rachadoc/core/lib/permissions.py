@@ -23,7 +23,7 @@ def is_receptionist(user):
 @predicate
 def is_doctor_and_same_clinic(user, obj):
     from rachadoc.accounts.models import Doctor
-    from core.lib.utils import get_object_or_none
+    from rachadoc.core.lib.utils import get_object_or_none
 
     doctor = get_object_or_none(Doctor, id=user.id)
     if not doctor:
@@ -44,7 +44,7 @@ def is_event_owner(user, obj):
 @predicate
 def is_receptionist_same_clinic(user, obj):
     from rachadoc.accounts.models import Receptionist
-    from core.lib.utils import get_object_or_none
+    from rachadoc.core.lib.utils import get_object_or_none
 
     receptionist: Receptionist = get_object_or_none(Receptionist, id=user.id)
     if not receptionist:

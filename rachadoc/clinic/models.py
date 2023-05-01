@@ -5,8 +5,8 @@ from rules.contrib.models import RulesModelMixin, RulesModelBase
 import rules
 
 from django.contrib.gis.db import models as gis_models
-from core.lib.mixins import BaseTimestampedModel
-from core.lib.permissions import is_doctor_and_same_clinic
+from rachadoc.core.lib.mixins import BaseTimestampedModel
+from rachadoc.core.lib.permissions import is_doctor_and_same_clinic
 
 
 class Clinic(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):

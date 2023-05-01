@@ -5,7 +5,7 @@ from rachadoc.agendasetting.serializers import (
 )
 from rachadoc.agendasetting.models import ClinicAgendaSetting, DoctorAgendaSetting
 from rachadoc.accounts.models import User, Doctor
-from core.lib.utils import getDoctorFromRequest
+from rachadoc.core.lib.utils import getDoctorFromRequest
 from django.db.models import QuerySet
 from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 

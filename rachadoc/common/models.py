@@ -1,10 +1,10 @@
 from django.db import models
 from rachadoc.common.managers import TarifManager, PictureManager, ExpertiseManager
 from django.utils.translation import gettext_lazy as _
-from core.lib.mixins import BaseTimestampedModel
+from rachadoc.core.lib.mixins import BaseTimestampedModel
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 import rules
-from core.lib.permissions import is_doctor, is_doctor_and_same_clinic, is_doctor_and_tarif_owner
+from rachadoc.core.lib.permissions import is_doctor, is_doctor_and_same_clinic, is_doctor_and_tarif_owner
 
 
 class Tarif(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):
