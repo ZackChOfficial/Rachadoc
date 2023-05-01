@@ -1,6 +1,7 @@
 .env
 *.pyc
 *.rdb
+rachadoc/staticfiles
 
 # Worspace & editor files
 .idea
@@ -17,7 +18,3 @@ htmlcov
 .DS_Store
 celerybeat-schedule
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
