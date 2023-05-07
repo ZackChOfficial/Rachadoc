@@ -46,6 +46,7 @@ services:
       - web-root:/var/www/html
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
     ports:
       - 80:80
       - "443:443"
@@ -111,7 +112,8 @@ services:
       - web-root:/var/www/html
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email tech@rachadoc.com --agree-tos --no-eff-email --staging -d rachadoc.com  -d www.rachadoc.com
+        #command: certonly --webroot --webroot-path=/var/www/html --email tech@rachadoc.com --agree-tos --no-eff-email --force-renewal  -d rachadoc.com  -d www.rachadoc.com -d api.rachadoc.com
+    command: certificates
 
 volumes:
   postgres_data:
@@ -123,6 +125,12 @@ volumes:
     driver_opts:
       type: none
       device: /var/www/html
+      o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /projects/dhparam/
       o: bind
 
 networks:
