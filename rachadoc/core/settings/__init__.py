@@ -195,7 +195,11 @@ CHANNEL_LAYERS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = ("http://localhost:5173",)
+CORS_ALLOWED_ORIGINS = [
+    "https://rachadoc.com",
+    "https://main.d1ok0fb36tx310.amplifyapp.com"
+]
+
 
 EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
 DEFAULT_FROM_EMAIL = "noreply@rachadoc.com"
