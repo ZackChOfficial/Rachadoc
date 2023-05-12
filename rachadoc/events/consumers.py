@@ -4,11 +4,11 @@ from asgiref.sync import async_to_sync
 
 class EventstConsumer(JsonWebsocketConsumer):
     def connect(self):
-        # if not "user" in self.scope or not self.scope["user"].is_active:
-        #     return self.close()
-        # if "clinic_id" not in self.scope or self.scope["clinic_id"] == None:
-        #     return self.close()
-        # async_to_sync(self.channel_layer.group_add)(self.scope["clinic_id"], self.channel_name)
+        if not "user" in self.scope or not self.scope["user"].is_active:
+            return self.close()
+        if "clinic_id" not in self.scope or self.scope["clinic_id"] == None:
+            return self.close()
+        async_to_sync(self.channel_layer.group_add)(self.scope["clinic_id"], self.channel_name)
         return super().connect()
 
     def receive_json(self, content, **kwargs):

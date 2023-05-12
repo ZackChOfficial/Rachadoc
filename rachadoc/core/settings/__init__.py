@@ -195,10 +195,7 @@ CHANNEL_LAYERS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOWED_ORIGINS = [
-    "https://rachadoc.com",
-    "https://main.d1ok0fb36tx310.amplifyapp.com"
-]
+CORS_ALLOWED_ORIGINS = ["https://rachadoc.com", "https://main.d1ok0fb36tx310.amplifyapp.com"]
 
 
 EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
