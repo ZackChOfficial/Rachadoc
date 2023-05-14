@@ -189,7 +189,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("redis", 6379)],
+            "hosts": [(env("REDIS_URL"), 6379)],
         },
     },
 }
@@ -223,3 +223,4 @@ from .business import *
 from .celeryconf import *
 from .celery_beat import *
 from .aws import *
+from .logging import *

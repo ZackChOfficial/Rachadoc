@@ -8,6 +8,10 @@ from rachadoc.notification.utils import (
 from rachadoc.notification.exceptions import NotificationsNotCreated
 from rachadoc.notification.models import AppointementNotification
 import rachadoc.notification.choices as choices
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 def delete_notification(appointement: Appointement, channel):
@@ -16,10 +20,10 @@ def delete_notification(appointement: Appointement, channel):
 
 @receiver(post_save, sender=Appointement)
 def notification_handler(sender, instance: Appointement, **kwargs):
-    print("called")
     if instance.send_email:
         try:
             create_or_update_email_appointement_notification(instance)
+            logger.info("email notification created and will be sent in the next cronjob round")
         except NotificationsNotCreated:
             # TODO log info
             pass
@@ -29,6 +33,7 @@ def notification_handler(sender, instance: Appointement, **kwargs):
     if instance.send_sms:
         try:
             create_or_update_sms_appointement_notification(instance)
+            logger.info("sms notification created and will be sent in the next cronjob round")
         except NotificationsNotCreated:
             # TODO log info
             pass

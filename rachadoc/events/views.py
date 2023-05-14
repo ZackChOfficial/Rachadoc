@@ -5,6 +5,7 @@ from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 from rest_framework import status
 from rest_framework.response import Response
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from rachadoc.core.lib.utils import (
     getDoctorFromRequest,
@@ -66,6 +67,8 @@ class AppointementViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
         if not serializedData.is_valid():
             return Response(serializedData.errors, status=status.HTTP_400_BAD_REQUEST)
         patient = get_object_or_none(Patient, id=serializedData.data["patient"])
+        if patient is None:
+            return Response(_("Patient Introuvable"), status=status.HTTP_400_BAD_REQUEST)
         data = {
             **serializedData.data,
             "clinic": self.clinic,

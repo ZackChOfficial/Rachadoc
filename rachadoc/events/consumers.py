@@ -1,5 +1,9 @@
 from channels.generic.websocket import JsonWebsocketConsumer
 from asgiref.sync import async_to_sync
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 class EventstConsumer(JsonWebsocketConsumer):
@@ -15,6 +19,7 @@ class EventstConsumer(JsonWebsocketConsumer):
         pass
 
     def send_updates(self, data):
+        logger.warning("send_updates: ws data")
         appointement = data["data"]
         self.send_json(appointement)
 
