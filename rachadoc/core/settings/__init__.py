@@ -201,9 +201,9 @@ CHANNEL_LAYERS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOWED_ORIGINS = ALLOWED_HOSTS
+CORS_ALLOWED_ORIGINS = [*ALLOWED_HOSTS]
 
-CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
+CSRF_TRUSTED_ORIGINS = [*ALLOWED_HOSTS]
 
 EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
 DEFAULT_FROM_EMAIL = "noreply@rachadoc.com"
@@ -214,7 +214,7 @@ ANYMAIL = {
 }
 
 AWS_USE_S3 = env("AWS_USE_S3", False)
-if False:
+if AWS_USE_S3:
     STORAGES = {
         "default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
         "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
