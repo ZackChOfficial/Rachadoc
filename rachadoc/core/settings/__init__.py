@@ -29,10 +29,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY", "django-insecure--13fdqdnwt(6iktmydx%_%efzvv3i&=iyu(d+6q$0*si1u%gv+")
+SECRET_KEY = env("SECRET_KEY", default="django-insecure--13fdqdnwt(6iktmydx%_%efzvv3i&=iyu(d+6q$0*si1u%gv+")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG", False)
+DEBUG = env("DEBUG", default=False)
 
 ALLOWED_HOSTS = [
     "https://rachadoc.com",
@@ -195,7 +195,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(env("REDIS_URL"), 6379)],
+            "hosts": [(env("REDIS_URL", default="127.0.0.1"), 6379)],
         },
     },
 }
@@ -222,10 +222,10 @@ DEFAULT_FROM_EMAIL = "noreply@rachadoc.com"
 SERVER_EMAIL = "root@rachadoc.com"
 
 ANYMAIL = {
-    "SENDINBLUE_API_KEY": env("SENDINBLUE_KEY", ""),
+    "SENDINBLUE_API_KEY": env("SENDINBLUE_KEY", default=""),
 }
 
-AWS_USE_S3 = env("AWS_USE_S3", False)
+AWS_USE_S3 = env("AWS_USE_S3", default=False)
 if AWS_USE_S3:
     STORAGES = {
         "default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
