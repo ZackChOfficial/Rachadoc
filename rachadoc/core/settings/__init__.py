@@ -201,9 +201,21 @@ CHANNEL_LAYERS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOWED_ORIGINS = [*ALLOWED_HOSTS]
+CORS_ALLOWED_ORIGINS = [
+    "https://rachadoc.com",
+    "https://www.rachadoc.com",
+    "https://rachadoc.vercel.app",
+    "http://localhost:5173",
+    "https://api.rachadoc.com",
+]
 
-CSRF_TRUSTED_ORIGINS = [*ALLOWED_HOSTS]
+CSRF_TRUSTED_ORIGINS = [
+    "https://rachadoc.com",
+    "https://www.rachadoc.com",
+    "https://rachadoc.vercel.app",
+    "http://localhost:5173",
+    "https://api.rachadoc.com",
+]
 
 EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
 DEFAULT_FROM_EMAIL = "noreply@rachadoc.com"
