@@ -200,6 +200,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.rachadoc.com",
     "https://main.d1ok0fb36tx310.amplifyapp.com",
     "https://rachadoc.vercel.app",
+    "http://localhost:5173",
+    "api.rachadoc.com",
+    "https://api.rachadoc.com",
 ]
 
 
