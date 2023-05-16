@@ -29,12 +29,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure--13fdqdnwt(6iktmydx%_%efzvv3i&=iyu(d+6q$0*si1u%gv+"
+SECRET_KEY = env("SECRET_KEY", "django-insecure--13fdqdnwt(6iktmydx%_%efzvv3i&=iyu(d+6q$0*si1u%gv+")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG", False)
 
-ALLOWED_HOSTS = ["*", "localhost"]
+ALLOWED_HOSTS = [
+    "https://rachadoc.com",
+    "https://www.rachadoc.com",
+    "https://rachadoc.vercel.app",
+    "http://localhost:5173",
+    "https://api.rachadoc.com",
+]
 
 
 # Application definition
@@ -195,25 +201,19 @@ CHANNEL_LAYERS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOWED_ORIGINS = [
-    "https://rachadoc.com",
-    "https://www.rachadoc.com",
-    "https://main.d1ok0fb36tx310.amplifyapp.com",
-    "https://rachadoc.vercel.app",
-    "http://localhost:5173",
-    "https://api.rachadoc.com",
-]
+CORS_ALLOWED_ORIGINS = ALLOWED_HOSTS
 
+CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 
 EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
 DEFAULT_FROM_EMAIL = "noreply@rachadoc.com"
 SERVER_EMAIL = "root@rachadoc.com"
 
 ANYMAIL = {
-    "SENDINBLUE_API_KEY": env("SENDINBLUE_KEY"),
+    "SENDINBLUE_API_KEY": env("SENDINBLUE_KEY", ""),
 }
 
-AWS_USE_S3 = env("AWS_USE_S3")
+AWS_USE_S3 = env("AWS_USE_S3", False)
 if False:
     STORAGES = {
         "default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
