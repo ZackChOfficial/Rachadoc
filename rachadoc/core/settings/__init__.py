@@ -40,6 +40,7 @@ ALLOWED_HOSTS = [
     "https://rachadoc.vercel.app",
     "http://localhost:5173",
     "https://api.rachadoc.com",
+    "http",
 ]
 
 
