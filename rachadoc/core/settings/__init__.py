@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
     "http://localhost:5173",
     "https://api.rachadoc.com",
     "http",
+    "localhost",
 ]
 
 

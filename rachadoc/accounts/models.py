@@ -38,6 +38,7 @@ class Patient(User):
     address = models.CharField(_("address"), max_length=2048, blank=True, null=True)
     CIVIL_STATUS = models.IntegerField(_("État civil"), choices=CIVIL_STATUS.choices, default=CIVIL_STATUS.UNKNOWN)
     insurance = models.IntegerField(_("Mutuelle"), choices=INSURANCES.choices, default=INSURANCES.UNKNOWN)
+    clinics = models.ManyToManyField("clinic.Clinic", related_name="patients")
     objects = PatientManager()
 
     class Meta:

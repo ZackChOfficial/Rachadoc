@@ -6,6 +6,8 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MaxLengthValidator, ProhibitNullCharactersValidator, EmailValidator
+from rest_framework.validators import ProhibitSurrogateCharactersValidator
 import re
 
 User = get_user_model()
@@ -34,6 +36,15 @@ class UserSerializer(FlexFieldsModelSerializer):
 
 
 class PatientSerializer(FlexFieldsModelSerializer):
+    email = serializers.CharField(
+        validators=[
+            MaxLengthValidator(limit_value=254),
+            ProhibitNullCharactersValidator(),
+            ProhibitSurrogateCharactersValidator(),
+            EmailValidator(),
+        ]
+    )
+
     class Meta:
         model = Patient
         fields = (

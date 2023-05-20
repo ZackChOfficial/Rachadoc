@@ -6,15 +6,18 @@ from rules.contrib.rest_framework import AutoPermissionViewSetMixin
 from rest_framework.decorators import action
 from rachadoc.clinic.models import Clinic
 from rachadoc.common.models import Expertise
-from rachadoc.core.lib.utils import get_object_or_none
+from rachadoc.core.lib.utils import (
+    get_clinic_from_user,
+    get_doctor_from_user,
+    get_object_or_none,
+    get_receptionist_from_user,
+)
 from rest_framework import status
-from rachadoc.core.lib.utils import getDoctorFromRequest, getReceptionistFromRequest
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import action
 from django.conf import settings
 
 from rachadoc.core.lib.utils import get_user_profile
-from django.shortcuts import redirect
 
 User = get_user_model()
 
@@ -27,12 +30,12 @@ class UserViewSet(viewsets.ViewSet):
     def me(self, request, *args, **kwargs):
         profile = get_user_profile(request.user)
         if profile == settings.DOCTOR:
-            doctor = getDoctorFromRequest(request)
+            doctor = get_doctor_from_user(request.user)
             serializer = DoctorSerializer(doctor)
             return Response({"profile": profile, **serializer.data})
         elif profile == settings.RECEPTIONIST:
-            doctor = getDoctorFromRequest(request)
-            serializer = ReceptionistSerializer(doctor)
+            recept = get_receptionist_from_user(request.user)
+            serializer = ReceptionistSerializer(recept)
             return Response({"profile": profile, **serializer.data})
         serializer = UserSerializer(request.user)
         data = {
@@ -50,15 +53,36 @@ class PatientViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def all(self, request, *args, **kwargs):
-        qs = self.filter_queryset(self.get_queryset())
+        if not request.user:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        if request.user.is_superuser:
+            qs = self.filter_queryset(self.get_queryset())
+            serialized = PatientSerializer(qs, many=True)
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        clinic = get_clinic_from_user(request.user)
+        if not clinic:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        qs = self.filter_queryset(clinic.patients.all())
         serialized = PatientSerializer(qs, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def create(self, request):
+        """
+        create new patient if it doesn't exist (based on email), update it if it exist
+        """
         serialized_data = PatientSerializer(data=request.data)
         if not serialized_data.is_valid():
             return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
-        patient = Patient.objects.create(password="", **serialized_data.validated_data)
+        patient, _ = Patient.objects.get_or_create(email=serialized_data.validated_data["email"], password="")
+        serialized_data.validated_data.pop("email")
+        for key, value in serialized_data.validated_data.items():
+            setattr(patient, key, value)
+        if len(serialized_data.validated_data):
+            patient.save()
+        clinic = get_clinic_from_user(request.user)
+        if clinic:
+            patient.clinics.add(clinic)
         return Response(PatientSerializer(patient).data)
 
 
@@ -140,7 +164,7 @@ class ReceptionistViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
 
     def create(self, request):
         clinic_id = request.data.get("clinic")
-        doctor = getDoctorFromRequest(request)
+        doctor = get_doctor_from_user(request.user)
         user: User = request.user
         if not doctor and not user.is_superuser:
             return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
