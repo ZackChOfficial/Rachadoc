@@ -25,7 +25,7 @@ def create_or_update_appointement_notification(
     start = appointement.start
     if type(start) == str:
         start = datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
-    scheduled_at: datetime = start - timedelta(hours=1)
+    scheduled_at: datetime = start - timedelta(minutes=settings.APPOINTEMENT_NOTIF_DELTA)
     notification = get_object_or_none(
         AppointementNotification, status=choices.SCHEDULED, channel=channel, appointement__id=appointement.id
     )
