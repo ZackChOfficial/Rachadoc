@@ -59,6 +59,7 @@ class AppointementViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
             return super().get_queryset()
         elif profile == settings.DOCTOR:
             doctor = get_doctor_from_user(self.request.user)
+            clinic = doctor.clinics.first()
         elif profile == settings.RECEPTIONIST:
             clinic = get_clinic_from_user(self.request.user)
             doctor = Doctor.objects.get(clinics__in=[clinic.id])
