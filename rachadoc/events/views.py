@@ -8,6 +8,8 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from rachadoc.core.lib.utils import (
+    get_clinic_from_user,
+    get_doctor_from_user,
     getDoctorFromRequest,
     getReceptionistFromRequest,
     get_object_or_none,
@@ -26,6 +28,10 @@ from django.db.models import Q, Count
 from django.conf import settings
 from djangorestframework_camel_case.util import camelize
 from datetime import timedelta
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 channel_layer = get_channel_layer()
 
@@ -52,12 +58,11 @@ class AppointementViewSet(AutoPermissionViewSetMixin, viewsets.ModelViewSet):
         if profile == settings.SUPERUSER:
             return super().get_queryset()
         elif profile == settings.DOCTOR:
-            doctor = getDoctorFromRequest(self.request)
-            clinic = doctor.clinics.first()
+            doctor = get_doctor_from_user(self.request.user)
         elif profile == settings.RECEPTIONIST:
-            receptionist = getReceptionistFromRequest(self.request)
-            clinic = receptionist.clinic
+            clinic = get_clinic_from_user(self.request.user)
             doctor = Doctor.objects.get(clinics__in=[clinic.id])
+        logger.info(f"Doctor: {doctor}  Clinic: {clinic}")
         self.doctor = doctor
         self.clinic = clinic
         return super().get_queryset().filter(clinic=clinic.id, doctor=doctor.id)
