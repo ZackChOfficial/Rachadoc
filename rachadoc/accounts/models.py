@@ -8,6 +8,7 @@ from rachadoc.common.models import Expertise
 from rachadoc.accounts.choices import GENDERS, CIVIL_STATUS, INSURANCES
 import rules
 from rules.contrib.models import RulesModelMixin, RulesModelBase
+from auditlog.registry import auditlog
 
 from rachadoc.core.lib.permissions import is_obj_owner, is_doctor, is_doctor_and_same_clinic
 
@@ -85,3 +86,9 @@ class Receptionist(User):
             "view": (rules.is_superuser | is_doctor_and_same_clinic),
             "list": rules.is_superuser | is_doctor,
         }
+
+
+auditlog.register(User)
+auditlog.register(Patient)
+auditlog.register(Doctor)
+auditlog.register(Receptionist)

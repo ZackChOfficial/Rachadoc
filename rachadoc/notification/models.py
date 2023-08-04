@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 import uuid
 from rachadoc.notification.choices import STATUS_CHOICES, CHANNEL_CHOICES
 from rachadoc.core.lib.mixins import BaseTimestampedModel
+from auditlog.registry import auditlog
 
 
 class Notification(BaseTimestampedModel):
@@ -31,3 +32,7 @@ class AppointementNotification(Notification):
             "channel",
             "scheduled_at",
         ]
+
+
+auditlog.register(AppointementNotification)
+auditlog.register(Notification)

@@ -5,6 +5,7 @@ from rachadoc.core.lib.mixins import BaseTimestampedModel
 from rules.contrib.models import RulesModelMixin, RulesModelBase
 import rules
 from rachadoc.core.lib.permissions import is_doctor, is_doctor_and_same_clinic, is_doctor_and_tarif_owner
+from auditlog.registry import auditlog
 
 
 class Tarif(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):
@@ -54,3 +55,8 @@ class Expertise(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase)
             "view": rules.always_allow,
             "list": rules.always_allow,
         }
+
+
+auditlog.register(Tarif)
+auditlog.register(Expertise)
+auditlog.register(Picture)

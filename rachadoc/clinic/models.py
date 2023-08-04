@@ -7,6 +7,7 @@ import rules
 from django.contrib.gis.db import models as gis_models
 from rachadoc.core.lib.mixins import BaseTimestampedModel
 from rachadoc.core.lib.permissions import is_doctor_and_same_clinic
+from auditlog.registry import auditlog
 
 
 class Clinic(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):
@@ -26,3 +27,6 @@ class Clinic(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):
             "view": (rules.is_superuser | is_doctor_and_same_clinic),
             "list": rules.is_superuser,
         }
+
+
+auditlog.register(Clinic)

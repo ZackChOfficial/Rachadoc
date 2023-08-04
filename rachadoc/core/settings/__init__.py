@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "rules",
     "anymail",
     "django_celery_beat",
+    "auditlog",
     "rachadoc.core",
     "rachadoc.accounts",
     "rachadoc.agendasetting",
@@ -175,7 +176,7 @@ AUTHENTICATION_BACKENDS = (
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static/"),
 ]
 
 # Configure media files

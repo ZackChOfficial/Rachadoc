@@ -13,6 +13,7 @@ from rachadoc.core.lib.permissions import (
     is_receptionist_same_clinic,
 )
 import uuid
+from auditlog.registry import auditlog
 
 
 class Event(BaseTimestampedModel, RulesModelMixin, metaclass=RulesModelBase):
@@ -61,3 +62,7 @@ class Personal(Event):
             "view": (rules.is_superuser | is_event_owner),
             "list": (rules.is_superuser | is_doctor),
         }
+
+
+auditlog.register(Appointement)
+auditlog.register(Personal)
