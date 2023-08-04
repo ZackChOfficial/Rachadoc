@@ -31,11 +31,6 @@ def t_send_apointement_reminder():
         send_appointement_email_notification(notification)
 
     for notification in sms_notifications:
-        pass  # TODO send sms notifs
+        pass  # TODO implement sms notifs
 
     logger.info("appointements reminders sent")
-
-
-@shared_task()
-def t_send_excel_export():
-    pass

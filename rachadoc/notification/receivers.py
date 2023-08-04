@@ -14,10 +14,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def delete_notification(appointement: Appointement, channel):
-    return AppointementNotification.objects.filter(appointement__id=appointement.id, channel=channel).delete()
-
-
 @receiver(post_save, sender=Appointement)
 def notification_handler(sender, instance: Appointement, **kwargs):
     if instance.send_email:
@@ -25,17 +21,19 @@ def notification_handler(sender, instance: Appointement, **kwargs):
             create_or_update_email_appointement_notification(instance)
             logger.info("email notification created and will be sent in the next cronjob round")
         except NotificationsNotCreated:
-            # TODO log info
-            pass
+            logger.warning(f"Email notification for appointement {instance.id} was not created")
+        except Exception as e:
+            logger.error(repr(e))
     else:
-        delete_notification(instance, choices.EMAIL)
+        AppointementNotification.objects.delete_by_appointement(instance, channel=choices.EMAIL)
 
     if instance.send_sms:
         try:
             create_or_update_sms_appointement_notification(instance)
             logger.info("sms notification created and will be sent in the next cronjob round")
         except NotificationsNotCreated:
-            # TODO log info
-            pass
+            logger.warning(f"SMS notification for appointement {instance.id} was not created")
+        except Exception as e:
+            logger.error(repr(e))
     else:
-        delete_notification(instance, choices.SMS)
+        AppointementNotification.objects.delete_by_appointement(instance, channel=choices.SMS)

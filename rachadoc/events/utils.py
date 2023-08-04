@@ -2,8 +2,11 @@ from rachadoc.events.models import Appointement
 from django.utils.translation import gettext_lazy as _
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, Protection
-from rachadoc.events.choices import Status
 import datetime
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 def _get_excel_filename(from_date: datetime, to_date: datetime):
@@ -74,4 +77,4 @@ def export_appointement_by_xls(from_date: datetime = None, to_date: datetime = N
                 cell.protection = Protection(locked=True)
         workbook.save(f"{filename}.xlsx")
     except Exception as e:
-        print(e)
+        logger.error(e)
