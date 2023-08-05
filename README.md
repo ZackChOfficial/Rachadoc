@@ -6,7 +6,7 @@
 
 - [x] ***Patient profiles*** Register new patients, edit and update patient information
 - [x] ***Appointment scheduling*** Schedule patient appointments and send reminders
-- [x] ***Patient history*** Description of feature 3 and how it works
+- [x] ***Patient history*** Record and view detailed patient medical history, appointments etc.
 - [x] ***Secure access*** Role based access for doctors, clinic staff and administrators
 - [ ] ***Reporting*** Custom reports on patient data, appointments, billing etc.
 - [ ] ***Billing*** Generate invoices, process payments and insurance claims
