@@ -44,9 +44,6 @@ Brief instructions on how to get the project running locally:
 3. Configure environment variables
     add `.env` file inside `core/settings` with the following variables
     ```python
-    client_id=X
-    client_secret=X
-
     REDIS_URL=X
     CELERY_BROKER_URL=X
     CELERY_RESULT_BACKEND=X
